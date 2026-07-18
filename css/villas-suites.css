@@ -1,0 +1,839 @@
+/* ==========================================================
+   VILLAS & SUITES — Estilos específicos de html/villas-suites.html
+   Tokens, reset, Header, Footer y menú móvil viven en base.css.
+
+   Seis secciones narrativas — Hero, Filosofía, La experiencia Casa
+   Brava (fusión de Villas y Todo incluido), Servicios Casa Brava,
+   Arquitectura, Cierre — pensadas como un recorrido por la propiedad,
+   no como un catálogo de habitaciones. Mobile-first:
+   cada bloque se escribe primero apilado en una columna y solo a
+   partir de 900px se recompone en las composiciones asimétricas
+   descritas en cada comentario. Sin cajas, sin sombras, sin
+   degradados decorativos: los únicos overlays de esta hoja son scrims
+   funcionales para mantener el contraste WCAG AA de un texto corto
+   sobre una fotografía, igual que ya hace .Footer::before en
+   base.css.
+========================================================== */
+
+/* Ritmo compartido por todas las secciones: mismo aire vertical en
+   toda la página, para que el recorrido se sienta como un único
+   documento y no como bloques inconexos. */
+.Hero,
+.Ethos,
+.Villa,
+.ServicesMenu,
+.Closing {
+  padding-inline: clamp(1.5rem, 6vw, 5rem);
+}
+
+.Ethos,
+.Villa,
+.ServicesMenu {
+  padding-block: clamp(4rem, 12vh, 7rem);
+}
+
+/* Etiqueta pequeña compartida por todas las cabeceras de sección (mismo
+   patrón que .Origin-eyebrow en about.css). */
+.Hero-eyebrow,
+.Ethos-eyebrow,
+.Villa-eyebrow,
+.ServicesMenu-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+}
+
+/* ==========================================================
+   1. HERO — una fotografía a pantalla casi completa (vertical: el
+   dormitorio del lucernario) y un titular corto. Sin carrusel, sin
+   botón grande: solo el eyebrow y el h1.
+========================================================== */
+.Hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding-block-end: clamp(2.5rem, 8vh, 4.5rem);
+}
+
+.Hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.Hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+/* Scrim funcional (no decorativo): el titular claro necesita contraste
+   AA sobre una fotografía cuyo tono varía punto a punto. Mismo criterio
+   que .Footer::before en base.css. */
+.Hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--color-text) 55%, transparent), transparent 55%);
+}
+
+.Hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-bg);
+}
+
+.Hero-eyebrow {
+  color: color-mix(in srgb, var(--color-bg) 90%, transparent);
+}
+
+/* Titular en Manrope (no Fraunces): a este tamaño y peso, el glifo del
+   "&" de Fraunces saca su variante caligráfica/con florituras, que
+   desentona con el resto del titular en vez de leerse como un simple
+   "y" — Manrope tiene un "&" recto, sin adornos. También sube de
+   tamaño respecto a la versión anterior, para que el Hero pese más
+   sobre la fotografía. */
+.Hero-title {
+  margin-top: 0.5rem;
+  font-family: var(--font-main);
+  font-weight: 200;
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================
+   2. FILOSOFÍA — sin fotografía de habitación todavía. Móvil: texto
+   seguido de una única fotografía vertical de apoyo. Desktop: texto y
+   fotografía del mismo tamaño, agrupados como un bloque compacto
+   centrado en la fila, en vez de repartirse a ancho completo.
+========================================================== */
+.Ethos {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vh, 3.5rem);
+  background-color: color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
+}
+
+.Ethos-text {
+  max-width: 31rem;
+}
+
+.Ethos-heading {
+  margin-top: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 3.6vw, 2.2rem);
+  line-height: 1.3;
+}
+
+.Ethos-body {
+  margin-top: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 31rem;
+}
+
+.Ethos-media {
+  align-self: center;
+  width: 100%;
+  max-width: 36.29rem;
+}
+
+/* El <br> del titular está pensado para equilibrar la línea en el
+   bloque de dos columnas de escritorio (ver media (min-width:900px)
+   más abajo). En móvil, con el texto ya envuelto de forma natural en
+   una columna estrecha, ese salto fijo caía en un punto distinto al
+   del ajuste automático y dejaba una palabra suelta ("necesitarlo.")
+   como línea huérfana. Se oculta hasta que el layout que lo necesita
+   esté activo. */
+.Ethos-headingBreak {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .Ethos-headingBreak {
+    display: inline;
+  }
+}
+
+@media (max-width: 899px) {
+  /* En móvil, el clamp propio de .Ethos-heading tocaba su mínimo (1.1rem)
+     mientras el de .Villa-lead tocaba el suyo (1.4rem): dos titulares de
+     la misma jerarquía (uno por sección) quedaban con tamaños distintos.
+     Se iguala aquí al valor mínimo de .Villa-lead. */
+  .Ethos-heading {
+    font-size: 1.4rem;
+  }
+
+  .Ethos-body {
+    font-size: 0.95rem;
+  }
+}
+
+/* Fotografía panorámica (playa aérea + yoga al atardecer): aspect-ratio
+   ligeramente más ancho que las dimensiones reales (1600×1172) para
+   recortar un poco de altura sin perder el collage horizontal. */
+.Ethos-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1600 / 1120;
+  object-fit: cover;
+}
+
+/* ==========================================================
+   3. LA EXPERIENCIA CASA BRAVA — fusión editorial de Villas y Todo
+   incluido: sin separación villa/suite, sin lista de iconos, sin
+   acordeón convencional. La misma fotografía ancla con leyenda
+   integrada que antes abría Villas, seguida de cinco historias breves
+   en prosa — no un checklist — presentadas siempre visibles como una
+   retícula editorial de fichas numeradas.
+========================================================== */
+/* Única cabecera de sección centrada de toda la página: el resto de
+   secciones mantienen su cabecera alineada a la izquierda, así que este
+   centrado no se convierte en el patrón por defecto, solo distingue la
+   apertura de este bloque. */
+.Villa-intro {
+  max-width: 32rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.Villa-lead {
+  margin-top: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  line-height: 1.35;
+}
+
+/* La leyenda vive dentro de la fotografía, como parte del diseño y no
+   como un párrafo aparte. Móvil: overlay horizontal anclado abajo,
+   sobre un scrim funcional
+   idéntico en criterio al de .Hero::before. Desktop (ver media query
+   900px): el texto se desplaza a una columna estrecha junto al borde
+   izquierdo de la imagen, como una leyenda de revista de arquitectura
+   que recorre el lateral de la fotografía en vez de cerrarla por
+   abajo — sin cajas opacas, solo el degradado funcional que mantiene
+   el contraste. */
+.Villa-feature {
+  position: relative;
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.Villa-featureImg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.Villa-feature::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--color-text) 55%, transparent), transparent 45%);
+}
+
+.Villa-featureCaption {
+  position: absolute;
+  z-index: 1;
+  inset-inline: clamp(1.25rem, 5vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vh, 2rem);
+  max-width: 26rem;
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--color-bg);
+}
+
+/* Cinco historias breves, siempre visibles (sin acordeón): un índice
+   numérico discreto, un título corto en cursiva editorial y una única
+   frase en prosa que sustituye al checklist de iconos. Móvil: una
+   columna con divisores horizontales, como una lista de créditos de
+   revista. Desktop (ver media query 900px): retícula de cinco
+   columnas con divisores verticales. */
+.Villa-stories {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.Villa-story {
+  padding-block: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+
+.Villa-story:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+
+.Villa-storyIndex {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+
+.Villa-storyTitle {
+  margin-top: 0.4rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.Villa-storyText {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 26rem;
+  color: color-mix(in srgb, var(--color-text) 85%, transparent);
+}
+
+/* ==========================================================
+   4. SERVICIOS CASA BRAVA — cada categoría como un universo visual
+   independiente. Cuatro portadas fotográficas de ancho completo, cada
+   una con su propio tono de acento derivado de
+   los tokens de marca vía color-mix (--category-accent, nunca un hex
+   suelto — ver combinaciones por modificador más abajo, todas
+   verificadas ≥ 4.5:1 de contraste sobre el fondo). Cada portada es un
+   botón: al pulsarla, la fotografía se escala levemente, aparece una
+   capa translúcida con el tono de la categoría y se despliega la
+   lista de experiencias (misma técnica grid-template-rows 0fr → 1fr
+   que el resto del sitio). Dentro de cada categoría, cada experiencia
+   sigue siendo su propio acordeón de un único nivel — mismo manejador
+   delegado, accordionTriggerHandler en villas-suites.js, reutilizado
+   sin cambios para ambos niveles.
+========================================================== */
+.ServicesMenu-intro {
+  max-width: 34rem;
+}
+
+.ServicesMenu-lead {
+  margin-top: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  line-height: 1.3;
+}
+
+.ServicesMenu-grid {
+  margin-top: clamp(2.5rem, 6vh, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vh, 1.75rem);
+}
+
+/* Tono de acento por categoría: siempre una mezcla de los tokens de
+   marca ya existentes (--color-text, --color-lg, --color-brand), en
+   proporciones verificadas para mantener ≥ 4.5:1 de contraste sobre
+   --color-bg quando se usa como texto. */
+.ServicesMenu-category--breakfast {
+  --category-accent: color-mix(in srgb, var(--color-text) 70%, var(--color-lg) 30%);
+}
+
+.ServicesMenu-category--drinks {
+  --category-accent: color-mix(in srgb, var(--color-text) 65%, var(--color-brand) 35%);
+}
+
+.ServicesMenu-category--rituals {
+  --category-accent: color-mix(in srgb, var(--color-text) 55%, var(--color-brand) 45%);
+}
+
+.ServicesMenu-category--massages {
+  --category-accent: color-mix(in srgb, color-mix(in srgb, var(--color-text) 72%, var(--color-lg) 28%) 85%, var(--color-brand) 15%);
+}
+
+.ServicesMenu-categoryHeading {
+  font-size: 0;
+}
+
+/* La portada es un botón a sangre: fotografía + capa de scrim +
+   contenido, todo dentro del área clicable — tamaño táctil generoso
+   (WCAG 2.2 AA). */
+/* Formato panorámico 16:9 en vez de proporción retrato: reduce casi a
+   la mitad el alto de cada portada, así que el contenido de texto de la
+   página gana peso relativo y hay menos scroll para llegar al Cierre. */
+.ServicesMenu-categoryCover {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  text-align: left;
+  color: var(--color-bg);
+}
+
+.ServicesMenu-categoryPicture {
+  position: absolute;
+  inset: 0;
+}
+
+.ServicesMenu-categoryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-500) ease;
+}
+
+.ServicesMenu-categoryCover[aria-expanded="true"] .ServicesMenu-categoryImg {
+  transform: scale(1.05);
+}
+
+/* Scrim funcional (contraste del texto claro) + un lavado del tono de
+   categoría, más visible al expandir. */
+.ServicesMenu-categoryOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--color-text) 75%, transparent), transparent 55%),
+    color-mix(in srgb, var(--category-accent) 18%, transparent);
+  transition: background-color var(--duration-400) ease;
+}
+
+.ServicesMenu-categoryCover[aria-expanded="true"] .ServicesMenu-categoryOverlay {
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--color-text) 80%, transparent), transparent 45%),
+    color-mix(in srgb, var(--category-accent) 32%, transparent);
+}
+
+.ServicesMenu-categoryContent {
+  position: absolute;
+  z-index: 1;
+  inset-inline: clamp(1.25rem, 4vw, 2rem);
+  bottom: clamp(1rem, 3vh, 1.5rem);
+  display: block;
+}
+
+.ServicesMenu-categoryName {
+  display: block;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  line-height: 1.15;
+}
+
+.ServicesMenu-categoryTagline {
+  display: block;
+  margin-top: 0.4rem;
+  max-width: 22rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+}
+
+.ServicesMenu-categoryCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+}
+
+.ServicesMenu-categoryCueOpen {
+  display: none;
+}
+
+.ServicesMenu-categoryCover[aria-expanded="true"] .ServicesMenu-categoryCueClosed {
+  display: none;
+}
+
+.ServicesMenu-categoryCover[aria-expanded="true"] .ServicesMenu-categoryCueOpen {
+  display: inline;
+}
+
+/* Mismo icono "+" minimalista que el resto del sitio (dos líneas, una
+   desaparece al abrir), aquí en el tono claro del texto sobre foto. */
+.ServicesMenu-categoryCueIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.ServicesMenu-categoryCueIcon::before,
+.ServicesMenu-categoryCueIcon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background-color: currentColor;
+  transition: transform var(--duration-300) ease, opacity var(--duration-300) ease;
+}
+
+.ServicesMenu-categoryCueIcon::before {
+  width: 100%;
+  height: 1px;
+}
+
+.ServicesMenu-categoryCueIcon::after {
+  width: 1px;
+  height: 100%;
+}
+
+.ServicesMenu-categoryCover[aria-expanded="true"] .ServicesMenu-categoryCueIcon::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+/* Panel de cada categoría: misma técnica de altura animada que el
+   resto del sitio (grid-template-rows 0fr → 1fr), con un fondo
+   ligeramente teñido del tono de la categoría — la capa translúcida
+   continúa aquí, no solo en la portada. */
+.ServicesMenu-categoryPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  background-color: color-mix(in srgb, var(--category-accent) 5%, var(--color-bg));
+  transition: grid-template-rows var(--duration-300) ease;
+}
+
+.ServicesMenu-categoryPanel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.ServicesMenu-categoryPanelInner {
+  overflow: hidden;
+}
+
+.ServicesMenu-list {
+  padding-inline: clamp(1.5rem, 5vw, 2.25rem);
+}
+
+.ServicesMenu-item {
+  border-top: 1px solid color-mix(in srgb, var(--category-accent) 20%, transparent);
+}
+
+.ServicesMenu-item:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--category-accent) 20%, transparent);
+}
+
+/* Cada experiencia es un acordeón de un solo nivel: el botón solo
+   muestra el nombre; horario/duración, descripción, qué incluye y
+   precio (cuando corresponde) viven en el panel, ocultos hasta el
+   clic. */
+.ServicesMenu-itemTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1rem;
+  text-align: left;
+  font-size: inherit;
+  color: inherit;
+}
+
+.ServicesMenu-itemName {
+  flex: 1;
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.8vw, 1.1rem);
+  transition: color var(--duration-300) ease;
+}
+
+.ServicesMenu-itemTrigger:hover .ServicesMenu-itemName {
+  color: var(--category-accent);
+}
+
+/* En línea, como continuación del resto de .ServicesMenu-itemMeta, sin
+   flex ni precio empujado al borde. El separador vive en el ::before
+   para no tocar el HTML si algún día el precio se omite. */
+.ServicesMenu-itemPrice::before {
+  content: " · ";
+}
+
+.ServicesMenu-itemPrice {
+  color: var(--color-text);
+}
+
+/* Mismo icono "+" que .ServicesMenu-categoryCueIcon, aquí en el tono
+   de la categoría en vez del claro. */
+.ServicesMenu-itemIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--category-accent);
+}
+
+.ServicesMenu-itemIcon::before,
+.ServicesMenu-itemIcon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background-color: currentColor;
+  transition: transform var(--duration-300) ease, opacity var(--duration-300) ease;
+}
+
+.ServicesMenu-itemIcon::before {
+  width: 100%;
+  height: 1px;
+}
+
+.ServicesMenu-itemIcon::after {
+  width: 1px;
+  height: 100%;
+}
+
+.ServicesMenu-itemTrigger[aria-expanded="true"] .ServicesMenu-itemIcon::after {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+/* Panel de cada experiencia: misma técnica de altura animada que
+   .ServicesMenu-categoryPanel, así que no depende de JS para medir el
+   alto del contenido. */
+.ServicesMenu-itemPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-300) ease;
+}
+
+.ServicesMenu-itemPanel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.ServicesMenu-itemPanelInner {
+  overflow: hidden;
+}
+
+/* Horario, duración o ingredientes seguidos del precio en la misma
+   línea, como una continuación, sin flex ni precio empujado al borde
+   derecho. */
+.ServicesMenu-itemMeta {
+  padding-top: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  color: var(--category-accent);
+}
+
+.ServicesMenu-itemBody {
+  margin-top: 0.6rem;
+  padding-bottom: 1.25rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  max-width: 34rem;
+}
+
+.ServicesMenu-item:has(.ServicesMenu-itemIncludes) .ServicesMenu-itemBody {
+  padding-bottom: 0;
+}
+
+.ServicesMenu-itemIncludes {
+  margin-top: 0.75rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ServicesMenu-itemIncludes li {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.ServicesMenu-itemIncludes li::before {
+  content: "— ";
+}
+
+/* ==========================================================
+   5. CIERRE — una fotografía grande (el salón) y un CTA discreto.
+   Mismo tratamiento de scrim funcional que Hero, pero
+   con el contenido centrado en vez de anclado abajo, para que el
+   cierre se sienta distinto a la apertura.
+========================================================== */
+.Closing {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.Closing-media {
+  position: absolute;
+  inset: 0;
+}
+
+.Closing-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+}
+
+.Closing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+.Closing-content {
+  position: relative;
+  z-index: 1;
+  max-width: 30rem;
+  color: var(--color-bg);
+}
+
+.Closing-heading {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  line-height: 1.3;
+}
+
+.Closing-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding-bottom: 0.3rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-bg) 60%, transparent);
+  transition: border-color var(--duration-300) ease, opacity var(--duration-300) ease;
+}
+
+.Closing-cta:hover,
+.Closing-cta:focus-visible {
+  border-color: var(--color-bg);
+  opacity: 0.85;
+}
+
+/* ==========================================================
+   RESPONSIVE — Villas & Suites
+   A partir de 900px cada sección se recompone en dos columnas, con una
+   proporción y una alineación propias por bloque (nunca la misma
+   composición dos veces), tal y como pide el brief.
+========================================================== */
+@media (min-width: 900px) {
+  .Hero {
+    align-items: center;
+    justify-content: flex-start;
+    padding-inline-start: clamp(3rem, 8vw, 6rem);
+  }
+
+  .Hero::before {
+    background: linear-gradient(to right, color-mix(in srgb, var(--color-text) 50%, transparent), transparent 60%);
+  }
+
+  .Hero-content {
+    max-width: 26rem;
+  }
+
+  /* Filosofía: texto y fotografía del mismo tamaño, agrupados y
+     centrados juntos como un único bloque compacto en vez de
+     repartirse a ancho completo (space-between). */
+  .Ethos {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+
+  .Ethos-text {
+    flex: 1 1 31.2rem;
+  }
+
+  .Ethos-media {
+    flex: 1 1 33.7rem;
+    align-self: center;
+    max-width: 33.7rem;
+  }
+
+  /* Leyenda de Villa-feature: en vez del overlay horizontal anclado
+     abajo (móvil), el texto se estrecha a una columna junto al borde
+     izquierdo de la fotografía, con top y bottom fijos para que ocupe
+     todo el alto disponible — la lectura recorre el lateral de la
+     imagen en vez de cerrarla por abajo, como pide el brief. */
+  .Villa-feature::before {
+    inset: 0 auto 0 0;
+    width: min(45%, 28rem);
+    background: linear-gradient(to right, color-mix(in srgb, var(--color-text) 58%, transparent), transparent);
+  }
+
+  .Villa-featureCaption {
+    inset-inline: auto;
+    left: clamp(1.5rem, 3vw, 2.25rem);
+    top: clamp(2rem, 6vh, 3rem);
+    bottom: clamp(2rem, 6vh, 3rem);
+    max-width: 18rem;
+    display: flex;
+    align-items: flex-end;
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  }
+
+  /* Las cinco historias pasan de una columna apilada a una retícula de
+     cinco, con divisores verticales en vez de horizontales — se lee
+     como una fila de fichas, no como una lista. */
+  .Villa-stories {
+    flex-direction: row;
+  }
+
+  .Villa-story {
+    flex: 1;
+    padding-block: 0;
+    padding-inline: 1.25rem;
+    border-top: none;
+    border-left: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+  }
+
+  /* La primera ficha (01 · Descanso) no necesita divisor: al pegar el
+     texto al borde exterior de la retícula (padding-inline-start: 0)
+     el border-left heredado de .Villa-story quedaba justo encima del
+     texto, sin la misma separación que tienen el resto de fichas
+     respecto a su línea — se quita aquí el borde en vez de añadir un
+     padding que rompería la alineación con el resto de la página. */
+  .Villa-story:first-child {
+    padding-inline-start: 0;
+    border-left: none;
+  }
+
+  .Villa-story:last-child {
+    padding-inline-end: 0;
+    border-bottom: none;
+  }
+
+  /* Servicios: las cuatro portadas pasan de una columna apilada a una
+     retícula 2×2 — Desayunos/Bebidas arriba, Rituales/Masajes abajo —
+     y ganan aún más formato apaisado (2:1) al disponer de más ancho
+     por tarjeta: dos filas cortas en vez de un bloque alto. */
+  .ServicesMenu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .ServicesMenu-categoryCover {
+    aspect-ratio: 2 / 1;
+  }
+
+}
+
+/* Techo de ancho de lectura en pantallas muy grandes: mismo criterio
+   que .Craft-mosaic en about.css, para que ninguna fotografía a ancho
+   completo se estire más allá de una proporción cómoda. */
+@media (min-width: 1400px) {
+  .Villa-feature {
+    max-width: 80rem;
+    margin-inline: auto;
+  }
+}

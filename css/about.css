@@ -1,0 +1,768 @@
+/* ==========================================================
+   ABOUT — Estilos específicos de html/about.html
+   Tokens, reset, Header, Footer y menú móvil viven en base.css.
+========================================================== */
+
+:root {
+  /* Paleta secundaria de About: piedra, arena, verde muy diluido y un
+     cuarto tono cálido (blush), derivados al 100% de los 4 colores
+     oficiales del Brand Book vía color-mix() — cero hex nuevo. Home usa
+     los 4 tonos saturados tal cual; About los diluye para tener una
+     atmósfera propia sin salirse de la paleta aprobada. */
+  --about-stone: color-mix(in srgb, var(--color-text) 35%, var(--color-bg) 65%);
+  --about-blush: color-mix(in srgb, var(--color-lg) 55%, var(--color-bg) 45%);
+}
+
+/* Etiqueta pequeña compartida por todos los capítulos de texto (mismo
+   patrón que .Feature-subtitle en Home, adaptado a esta página).
+   Footer-eyebrow se suma aquí (no en base.css): el Footer compartido no
+   lleva eyebrow en ninguna otra página, esto es solo para que el panel
+   de cierre de About abra igual que el resto de bloques de la página en
+   vez de arrancar directo en los enlaces. */
+.Origin-eyebrow,
+.VideoFeature-eyebrow,
+.Philosophy-eyebrow,
+.Craft-eyebrow,
+.Footer-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+}
+
+/* ==========================================================
+   HERO + ORIGEN — composición partida en dos columnas. Cada columna vive
+   dentro de su propio wrapper alto (.AboutHero-stickyWrap y .Origin-stickyWrap),
+   y el elemento que engancha (.AboutHero, .Origin) es un sticky dentro de su
+   respectivo wrapper, no directamente hijo del grid.
+
+   grid-template-rows fija la fila en 220vh, el mismo valor contra el que
+   "El proceso" mide su -60vh de solape. Cada wrapper declara un alto propio
+   mayor que el de la fila, para que .AboutHero y .Origin puedan quedarse
+   enganchados durante todo el tramo de scroll que dura la subida de El
+   proceso.
+
+   Al hacer scroll, position:sticky (top:50% + transform:translateY(-50%)
+   en .Origin) engancha el bloque en el centro exacto del viewport en
+   cuanto lo alcanza y lo mantiene; "El proceso" (.VideoFeature) usa un
+   margin-top negativo para empezar a aparecer por debajo durante ese mismo
+   tramo: al ser una sección posterior en el HTML, se dibuja por encima de
+   Origen allí donde se solapan, cubriéndola de forma progresiva hasta
+   sustituirla del todo. */
+.HeroTransition {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 220vh;
+  align-items: start;
+  column-gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+/* Mayor que la fila (220vh, ver .HeroTransition): el margen de sobra es
+   lo que le da al Hero (top:0, caja de 100vh) recorrido suficiente para
+   seguir enganchado durante toda la subida de El proceso (-60vh sobre esa
+   misma fila de 220vh). */
+.AboutHero-stickyWrap {
+  min-height: 300vh;
+}
+
+.AboutHero {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.AboutHero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 18% 10%;
+  display: block;
+
+  animation: AboutHeroKenBurns var(--duration-20000) ease-in-out infinite alternate;
+}
+
+@keyframes AboutHeroKenBurns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.AboutHero-line {
+  position: relative;
+  z-index: 1;
+  
+  max-width: min(36rem, 85%);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  text-align: center;
+  font-family: var(--font-title);
+  font-weight: 200;
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+  color: var(--color-bg);
+  text-shadow:
+    0 1px 3px color-mix(in srgb, var(--color-text) 65%, transparent),
+    0 6px 20px color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+.AboutHero-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--color-bg);
+  opacity: 0.9;
+  margin-bottom: 0.6rem;
+}
+
+/* Mismo razonamiento que .AboutHero-stickyWrap: mayor que la fila fija
+   (220vh) para que Origen también tenga recorrido de sobra y siga
+   centrada y enganchada durante toda la subida de El proceso.
+   display:flex + align-items:center no es solo centrado horizontal — es
+   lo que coloca la posición de reposo de .Origin a media altura de su
+   wrapper de 300vh. Sin ese flex, .Origin se apoyaría arriba del todo del
+   wrapper y el sticky se engancharía casi de inmediato al entrar en
+   viewport, perdiendo el recorrido de "empieza abajo, fuera de vista, y
+   sube hasta centrarse". El centrado horizontal se resuelve con
+   justify-content:center (no con margin-inline:auto en .Origin) para
+   mantener una única técnica de centrado sobre el mismo elemento sticky. */
+.Origin-stickyWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300vh;
+}
+
+/* Columna de texto: sin fondo, sin backdrop-filter — solo el propio
+   sticky (top:50% + transform:translateY(-50%), el patrón estándar para
+   "enganchar" un elemento centrado verticalmente en el viewport. El
+   centrado horizontal lo resuelve por completo el flex del wrapper
+   (align-items + justify-content, ver arriba): aquí solo hace falta
+   max-width para el ancho de lectura y text-align:center para las
+   líneas de texto dentro de esa caja. */
+.Origin {
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 28rem;
+  padding: 0 clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.Origin-title {
+  margin-top: 0.5rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Origin-text {
+  margin-top: 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* Revelado en cascada */
+.HeroTransition--animated .Origin-eyebrow,
+.HeroTransition--animated .Origin-title,
+.HeroTransition--animated .Origin-text {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.HeroTransition--animated .Origin-title {
+  transition-delay: 0.09s;
+}
+
+.HeroTransition--animated .Origin-text {
+  transition-delay: 0.18s;
+}
+
+.HeroTransition--animated .Origin--visible .Origin-eyebrow,
+.HeroTransition--animated .Origin--visible .Origin-title,
+.HeroTransition--animated .Origin--visible .Origin-text {
+  opacity: 1;
+  transform: none;
+}
+
+.VideoFeature {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  gap: clamp(2rem, 6vh, 3rem);
+  padding: clamp(4rem, 10vh, 6rem) clamp(1.5rem, 6vw, 5rem);
+  background-color: var(--color-text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-top: -60vh;
+  margin-top: -60svh;
+}
+
+/* Revelado de entrada: única microinteracción de esta sección. */
+.VideoFeature--animated .VideoFeature-intro,
+.VideoFeature--animated .VideoFeature-media {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.VideoFeature--animated .VideoFeature-media {
+  transition-delay: 0.1s;
+}
+
+.VideoFeature--animated.VideoFeature--visible .VideoFeature-intro,
+.VideoFeature--animated.VideoFeature--visible .VideoFeature-media {
+  opacity: 1;
+  transform: none;
+}
+
+.VideoFeature-intro {
+  max-width: 30rem;
+  text-align: left;
+}
+
+.VideoFeature-eyebrow {
+  color: var(--color-lg);
+}
+
+.VideoFeature-title {
+  margin-top: 0.5rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.3;
+  color: var(--color-bg);
+}
+
+.VideoFeature-text {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-bg) 80%, transparent);
+}
+
+.VideoFeature-media {
+  width: 100%;
+}
+
+.VideoFeature-facade {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  padding: 0;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  background-blend-mode: multiply;
+}
+
+.VideoFeature-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  transition: transform var(--duration-300) ease;
+}
+
+.VideoFeature-facade:hover .VideoFeature-play,
+.VideoFeature-facade:focus-visible .VideoFeature-play {
+  transform: scale(1.08);
+}
+
+.VideoFeature-facade:focus-visible {
+  outline: 0.15rem solid var(--color-bg);
+  outline-offset: -0.15rem;
+}
+
+.VideoFeature-icon {
+  color: var(--color-text);
+  margin-left: 0.2rem;
+}
+
+.VideoFeature-iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 0.25rem;
+  display: block;
+}
+
+/* Modificador --compact: bloque más pequeño, fondo claro, vídeo integrado
+   en columna junto al texto en vez de a ancho completo — el vídeo 2 se lee
+   como una inserción editorial, no como una repetición del vídeo 1.
+   margin-top:0 resetea el -60vh de la base (pensado solo para solapar
+   "El proceso" sobre Origen): sin este reset, "La decisión" heredaría esa
+   misma subida y quedaría 60vh por encima de Filosofía */
+.VideoFeature--compact {
+  background-color: var(--about-blush);
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 3rem);
+  margin-top: 0;
+}
+
+.VideoFeature--compact .VideoFeature-eyebrow,
+.VideoFeature--compact .VideoFeature-title {
+  color: var(--color-text);
+}
+
+.VideoFeature--compact .VideoFeature-eyebrow {
+  color: var(--color-accent);
+}
+
+.VideoFeature--compact .VideoFeature-text {
+  color: var(--color-text);
+}
+
+.VideoFeature--compact .VideoFeature-facade {
+  margin-top: clamp(-3rem, -6vh, -4.5rem);
+  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--color-text) 25%, transparent);
+}
+
+/* ==========================================================
+   3. FILOSOFÍA — cita corta y propia, sin fotografía (ver about.html).
+========================================================== */
+.Philosophy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  text-align: right;
+  min-height: 46vh;
+  padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 8vw, 6rem);
+  background-color: var(--about-stone);
+  overflow: hidden;
+}
+
+/* Signo de cita decorativo (aria-hidden en el HTML) */
+.Philosophy-mark {
+  position: absolute;
+  z-index: 0;
+  top: clamp(-3rem, -6vh, -1.5rem);
+  left: clamp(1rem, 6vw, 4rem);
+  font-family: var(--font-title);
+  font-size: clamp(8rem, 22vw, 16rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-text) 12%, transparent);
+  pointer-events: none;
+  user-select: none;
+  /* La variable la actualiza js/about.js (setProperty, no style.transform
+     directo): así el parallax nunca pisa el translateX(-50%) que el
+     breakpoint móvil añade para centrar el signo — cada uno controla su
+     propia parte del transform. Valor de respaldo 0px si JS no corre. */
+  transform: translateY(var(--philosophy-parallax-offset, 0px));
+}
+
+.Philosophy-eyebrow {
+  position: relative;
+  z-index: 1;
+}
+
+.Philosophy-quote {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+/* ==========================================================
+   4. MATERIALES Y ENTORNO — mosaico editorial de seis imágenes, cuadrícula
+   base de 3 columnas. La pieza ancla (.Craft-mosaicTile--anchor, la mesa de
+   comedor) ocupa 2×2 y el resto se acomoda alrededor con grid-auto-flow:dense.
+   Zoom muy sutil en hover + aparición en cascada con ligero escalado al entrar 
+   en pantalla.
+========================================================== */
+.Craft {
+  padding: clamp(4rem, 10vh, 6rem) clamp(1.5rem, 6vw, 5rem);
+  padding-bottom: clamp(6rem, 14vh, 9rem);
+  text-align: center;
+  background-color: var(--color-bg);
+}
+
+.Craft-title {
+  max-width: 30rem;
+  margin: 0.75rem auto 0;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+/* grid-auto-flow: dense permite que las cinco piezas pequeñas rellenen
+   los huecos que deja la pieza ancla (ver .Craft-mosaicTile--anchor) en
+   vez de dejar celdas vacías — es lo que hace que sea un mosaico con 
+   jerarquía real, sin añadir ni quitar ninguna fotografía. */
+.Craft-mosaic {
+  max-width: 60rem;
+  margin: clamp(2.5rem, 6vh, 4rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: dense;
+  gap: clamp(0.5rem, 1.5vw, 0.85rem);
+}
+
+.Craft-mosaicTile {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0.2rem;
+  /* Con aspect-ratio ya no hay min-width/min-height:auto que pueda
+     desviarse (la imagen ya no dicta el tamaño de la celda en ningún
+     eje), pero se mantiene como red de seguridad ante cualquier
+     contenido futuro que no sea una imagen de object-fit:cover. */
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Pieza ancla (la mesa de comedor, la fotografía más amplia de las seis):
+   Se anula en móvil (ver responsive): en una cuadrícula de 2 columnas, 
+   spanear 2 columnas ya es el 100% del ancho, y sumarle 2 filas la dejaría 
+   demasiado alta y pesada para esa pantalla. */
+.Craft-mosaicTile--anchor {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.Craft-mosaicTile picture {
+  position: absolute;
+  inset: 0;
+}
+
+.Craft-mosaicImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--duration-400) ease;
+}
+
+.Craft-mosaicTile:hover .Craft-mosaicImg {
+  transform: scale(1.04);
+}
+
+/* La foto del jabón se acerca con un scale() propio (no cambia el recorte
+   de la tarjeta, solo amplía lo que hay dentro). El hover general suma
+   1.04 más, así que aquí el valor de hover lo recalculo (1.5 × 1.04) para 
+   que seguir viendo el mismo salto de zoom relativo que las demás tarjetas, 
+   no una que salte más que las otras. */
+.Craft-mosaicImg--soap {
+  transform: scale(1.5);
+}
+
+.Craft-mosaicTile:hover .Craft-mosaicImg--soap {
+  transform: scale(1.56);
+}
+
+/* Cascada de entrada: retraso creciente por posición (nth-child), no por
+   cálculo en JS. */
+.Craft-mosaic--animated .Craft-mosaicTile {
+  opacity: 0;
+  /* Ascenso + un ligero escalado de entrada (0.96→1): sensación de que
+     cada pieza "se asienta" en su sitio, no que simplemente aparece. */
+  transform: translateY(1.25rem) scale(0.96);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile:nth-child(4) {
+  transition-delay: 0.24s;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile:nth-child(5) {
+  transition-delay: 0.32s;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile:nth-child(6) {
+  transition-delay: 0.4s;
+}
+
+.Craft-mosaic--animated .Craft-mosaicTile--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Footer en color (ver about.html): modificador de página sobre el
+   componente .Footer-img compartido — no afecta a ninguna otra página,
+   solo se aplica aquí porque solo about.html añade esta clase extra. */
+.Footer-img--towel {
+  object-position: center 78%;
+}
+
+/* Footer--corner (modificador de página, solo about.html): reposiciona el
+   bloque de contacto/copyright a una esquina inferior en vez de dejarlo
+   centrado sobre toda la foto. El degradado compartido de base.css
+   (.Footer::before) se sustituye aquí para mantener cohesión con el resto 
+   del sitio sin oscurecer la foto. Nada de esto toca el Footer compartido: 
+   solo se activa con esta clase extra, que ninguna otra página añade. */
+.Footer--corner::before {
+  background: color-mix(in srgb, var(--color-text) 12%, transparent);
+}
+
+.Footer--corner {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.Footer--corner .Footer-wrapper {
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 24rem;
+  margin: clamp(1.5rem, 5vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border-radius: 0.4rem;
+  text-align: left;
+  background-color: color-mix(in srgb, var(--color-text) 78%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* --color-lg (mismo tono que .VideoFeature-eyebrow, pensado para leerse
+   sobre fondo oscuro) en vez de --color-accent, el valor por defecto de
+   la regla compartida, que no da suficiente contraste sobre este panel
+   semitransparente. */
+.Footer--corner .Footer-eyebrow {
+  color: var(--color-lg);
+  margin-bottom: 0.4rem;
+}
+
+/* Separación entre los dos enlaces (correo e Instagram) para que se lean
+   como dos líneas distintas. */
+.Footer--corner .Footer-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .Footer--corner .Footer-wrapper {
+    background-color: color-mix(in srgb, var(--color-text) 88%, transparent);
+  }
+}
+
+/* Cierre del recorrido: el panel entra con un fundido/ascenso muy leve la
+   primera vez que aparece (ver js/about.js) */
+.Footer--corner.Footer--animated .Footer-wrapper {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.Footer--corner.Footer--animated .Footer-wrapper--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   RESPONSIVE — About
+========================================================== */
+
+@media (max-width: 900px) {
+  /* Columna única: la composición partida (foto fija + columna de texto)
+     solo tiene sentido con dos mitades de pantalla lado a lado. Con una
+     sola columna, display:grid a 1fr es visualmente idéntico a un simple
+     apilado en bloque — así que aquí se pasa a display:block en vez de
+     mantener el grid a una columna. */
+  .HeroTransition {
+    display: block;
+  }
+
+  /* Foto completa, igual que con el grid de una columna: un bloque
+     ocupa el 100% del ancho de su contenedor por defecto, así que este
+     cambio de display no altera el ancho ni el recorte de la foto. */
+  .AboutHero {
+    align-items: center;
+    padding-bottom: clamp(2.5rem, 7vh, 3.5rem);
+  }
+
+  /* Object-position propio de tablet: al pasar la columna al 100% del
+     viewport, cover empieza a recortar por el eje X (ver comentario junto
+     a .AboutHero-img) y el 18% de escritorio, pensado para cuando ese eje
+     no se recortaba, descentra el pasillo hacia la izquierda. La foto es
+     simétrica (el pasillo cae en el centro), así que 50% horizontal lo
+     mantiene protagonista sea cual sea el recorte real en cada tablet. */
+  .AboutHero-img {
+    object-position: 50% 20%;
+  }
+
+  /* Mismo reset que .Origin-stickyWrap, y por la misma razón: sin la
+     columna partida no hace falta recorrido extra de scroll para
+     mantener nada enganchado. */
+  .AboutHero-stickyWrap {
+    min-height: 0;
+  }
+
+  .Origin-stickyWrap {
+    min-height: 0;
+  }
+
+  /* Sticky desactivado: en pantallas pequeñas complica el scroll táctil.
+     Origen pasa a flujo normal, apilado justo debajo del Hero.
+     padding-top/-bottom sustituye el espaciado que antes daba el sticky
+     centrado en su propio tramo de scroll, para separar el bloque del
+     Hero y de "El proceso" que le sigue. .Origin-stickyWrap sigue siendo
+     flex (regla base), pero con .Origin en position:static y
+     min-height:0 aquí abajo ese flex ya no tiene recorrido que centrar,
+     así que este padding actúa como espaciado limpio. */
+  .Origin {
+    position: static;
+    transform: none;
+    max-width: none;
+    text-align: center;
+    padding-top: clamp(3.5rem, 10vw, 4.5rem);
+    padding-bottom: clamp(3.5rem, 10vw, 5rem);
+  }
+
+  /* Ritmo vertical interno: mismo texto, mismo tamaño (clamp ya
+     responsive, sin tocar), solo más aire entre eyebrow → título →
+     párrafo para que la columna respire igual que en escritorio, donde
+     el sticky centrado ya le daba holgura propia. */
+  .Origin-title {
+    margin-top: 1.1rem;
+  }
+
+  .Origin-text {
+    margin-top: 1.75rem;
+  }
+
+  /* La asimetría 1fr/2fr (texto/vídeo) solo tiene sentido con dos
+     columnas lado a lado: aquí colapsa a una, texto primero y vídeo
+     debajo — tanto en "El proceso" como en "La decisión", así que la
+     regla vive en la clase base .VideoFeature, no solo en el modificador
+     --compact.
+     text-align:center por sí solo no basta para centrar el bloque:
+     .VideoFeature-intro trae max-width:30rem de escritorio (para no
+     estirar las líneas junto al vídeo), y al pasar a columna completa esa
+     caja queda pegada a la izquierda. margin-left/right:auto centra la
+     caja; text-align:center centra las líneas dentro de ella — hacen
+     falta las dos cosas. */
+  .VideoFeature {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .VideoFeature-intro {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .VideoFeature--compact .VideoFeature-facade {
+    margin-top: 0;
+  }
+
+  .Philosophy {
+    align-items: center;
+    text-align: center;
+    min-height: 0;
+    padding: 3.5rem 1.5rem;
+  }
+
+  .Philosophy-mark {
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--philosophy-parallax-offset, 0px));
+  }
+
+  .Craft-mosaic {
+    max-width: 22rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* La pieza ancla se anula en móvil: en 2 columnas, spanear 2 ya es el
+     100% del ancho, y sumarle 2 filas la dejaría desproporcionada. Vuelve
+     a ser una pieza más del mosaico, como el resto. */
+  .Craft-mosaicTile--anchor {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* Footer--corner en escritorio: el Footer compartido es muy ancho y bajo
+   (min-height:65vh sobre todo el ancho del viewport), así que con
+   object-fit:cover una foto vertical necesita mucho escalado para cubrir
+   ese ancho, dejando visible solo una franja estrecha de su alto real.
+   about.html sirve aquí una variante horizontal de la misma foto vía
+   <source media>, que necesita mucho menos recorte para cubrir el ancho.
+   min-height sube de 65vh a 80vh solo para este Footer (no toca el
+   .Footer compartido, el resto de páginas sigue en 65vh) para ampliar
+   aún más el encuadre visible. object-position se ajusta a 60% para
+   centrar el sujeto de la foto horizontal, distinto del punto de anclaje
+   pensado para la vertical. */
+@media (min-width: 900px) {
+  .Footer--corner {
+    min-height: 80vh;
+  }
+
+  .Footer-img--towel {
+    object-position: center 60%;
+  }
+}
+
+/* Hero más compacto solo en móviles pequeños, no en tablets: el bloque de
+   900px de arriba ya pasa a una columna en ese rango, pero mantiene el
+   Hero a pantalla completa (100vh/100svh), correcto para una tablet. En un
+   teléfono ese mismo alto obliga a un scroll larguísimo antes de llegar a
+   Origen. */
+@media (max-width: 600px) {
+  .AboutHero {
+    min-height: 70vh;
+    min-height: 70dvh;
+  }
+
+  /* Object-position propio de teléfono: aquí el contenedor es
+     proporcionalmente más estrecho y alto que en tablet (menos ancho,
+     menos alto por el min-height reducido de arriba) sigue siendo 50% para
+     mantener el pasillo centrado, y el eje Y baja un poco respecto a
+     tablet para dejar algo más de suelo de piedra visible y menos cielo. */
+  .AboutHero-img {
+    object-position: 50% 30%;
+  }
+}

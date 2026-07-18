@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vive las experiencias de Casa Brava en Lombok: yoga al amanecer, agua fría bajo la pérgola y una piscina privada en cada una de las ocho villas.">
+    <meta name="robots" content="index,follow">
+    <title>Experiences | Casa Brava Boutique Hotel</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/ISOTYPE/ISOTYPE.svg">
+
+    <link rel="canonical" href="https://hellobymarta.github.io/casa-brava/html/experiences.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Experiences | Casa Brava Boutique Hotel">
+    <meta property="og:description" content="Yoga al amanecer, agua fría bajo la pérgola y una piscina privada en cada una de las ocho villas de Casa Brava.">
+    <meta property="og:image" content="https://hellobymarta.github.io/casa-brava/assets/images/experiences/HeroExp.jpg">
+    <meta property="og:url" content="https://hellobymarta.github.io/casa-brava/html/experiences.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fraunces carga el rango 200..600: el CSS de esta página usa varios pesos
+         (300/400/600 en Pools-title, Moment-name, Guide-navLink) que necesitan
+         estar realmente disponibles para evitar que el navegador sintetice
+         una negrita falsa. -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Fraunces:opsz,wght@9..144,200..600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/experiences.css">
+    <!-- GSAP + ScrollTrigger: solo en esta página, para el revelado de
+         fotografía/titulares atado al scroll (clip-path + line-mask, ver
+         experiences.css/experiences.js). js/experiences.js comprueba que
+         ambos existan antes de usarlos, así que si el CDN fallara la página
+         sigue funcionando con todo el contenido visible, sin animación. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/experiences.js" defer></script>
+</head>
+<body>
+    <!-- SVG Symbol reutilizable -->
+    <svg style="display: none;" aria-hidden="true">
+        <symbol id="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/>
+            <path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/>
+            <path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"/>
+            <path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"/>
+        </symbol>
+    </svg>
+
+    <!-- Overlay menú móvil -->
+    <div class="MenuOverlay" aria-hidden="true"></div>
+
+    <header class="Header">
+        <a href="../index.html" class="Header-logoLink" aria-label="Ir al inicio" title="Casa Brava - Inicio">
+            <img src="../assets/icons/LOGO/LOGO-BLACK/LOGO-H1_BLACK.png" alt="Casa Brava Boutique Hotel logo" class="Header-logoImg" width="180" height="60">
+        </a>
+
+        <nav class="Header-nav" id="Main-menu" aria-label="Navegación principal">
+            <ul class="Header-ul">
+                <li class="Header-li"><a href="../index.html" class="Header-a" title="Inicio">Inicio</a></li>
+                <li class="Header-li"><a href="villas-suites.html" class="Header-a" title="Suites y villas">Suites &amp; Villas</a></li>
+                <li class="Header-li"><a href="experiences.html" class="Header-a" title="Experiencias" aria-current="page">Experiencias</a></li>
+                <li class="Header-li"><a href="about.html" class="Header-a" title="Sobre Casa Brava">Nosotros</a></li>
+                <li class="Header-li"><a href="contact.html" class="Header-a" title="Contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <button class="Header-hamburger" aria-label="Abrir menú de navegación" aria-controls="Main-menu" aria-expanded="false" title="Menú">
+            <svg class="Header-icon" width="24" height="24">
+                <use href="#icon-hamburger"></use>
+            </svg>
+        </button>
+
+        <div class="Header-booking">
+            <a href="villas-suites.html" class="Button-book" title="Reservar">Reservar</a>
+        </div>
+    </header>
+
+    <!-- Main: recorrido editorial por las experiencias de Casa Brava en cuatro
+         bloques, cada uno con una composición distinta (Estampas: retícula
+         editorial que fusiona tipografía y fotografía de los cinco momentos
+         del día; Piscinas: foto + texto en columnas; Sobremesa: díptico; Guía:
+         tiras horizontales con scroll-snap por categoría) — ver
+         css/experiences.css para el detalle de cada tratamiento. Toda la
+         fotografía es real de Casa Brava o de Lombok, nunca de stock ni
+         generada por IA; los alt describen exactamente lo que se ve. -->
+    <main class="Main">
+        <!-- 1. ESTAMPAS — portada de la página. Retícula única de CSS Grid con 6
+             columnas (.Album-grid, grid-template-columns: repeat(6, 1fr)) para
+             toda la composición: cada bloque usa grid-column: span N, así la
+             alineación queda garantizada por construcción en vez de depender de
+             porcentajes ad hoc calculados por separado en cada fila.
+             Reparto de las 7 piezas (título + 6 fotografías) en 3 filas sin
+             necesitar grid-template-areas: los span de cada fila suman 6 y el
+             auto-placement por defecto de Grid coloca cada bloque justo detrás
+             del anterior, saltando de fila en cuanto no cabe el siguiente span:
+               Fila 1 (2 × 3 columnas): titular + fotografía de paddleboard a sangre.
+               Fila 2 (3 × 2 columnas): Subahnale (01) + Ragi Genep (02) + Taman (03).
+               Fila 3 (2 × 3 columnas): Bintang Empat (04) + Wayang (05).
+             Solo la fila 1 cabe en el primer viewport (calc(100vh - 9rem),
+             descontando el Header fijo) y actúa como portada; las filas 2 y 3
+             aparecen al hacer scroll.
+             Color: fondo blanco en toda la sección. Cada momento usa un único
+             acento —su número de índice, en su tono de tinta (--tint-ink-*,
+             con contraste WCAG ≥3:1 sobre blanco)— nunca un bloque de color ni
+             una tarjeta. El único degradado (los cinco tonos del día) es la
+             línea fina bajo el titular, no el texto grande.
+             Revelado: Reveal-media (wipe con scrub) en cada fotografía,
+             Reveal-line en el titular, [data-reveal-fade] en cada bloque de
+             texto — ver experiences.js. -->
+        <section class="Album Intro-gallery" aria-labelledby="album-title">
+            <h1 class="u-srOnly" id="experiences-title">Experiences | Casa Brava Boutique Hotel</h1>
+
+            <div class="Album-grid">
+                <div class="Album-bandText" data-reveal-fade>
+                    <span class="Album-eyebrow">Estampas</span>
+                    <h2 class="Album-title" id="album-title"><span class="Reveal-line" data-reveal-line><span class="Reveal-lineInner">El mismo ritmo, instante a instante</span></span></h2>
+                    <span class="Album-titleRule" data-reveal-draw aria-hidden="true"></span>
+                    <p class="Album-lead">Agua, arena, sobremesa, silencio: los mismos gestos que definen un día en Casa Brava, vistos en fragmentos.</p>
+                </div>
+                <picture class="Album-bandMedia Album-bandMedia--paddleboard">
+                    <source srcset="../assets/images/experiences/HeroExp.avif" type="image/avif">
+                    <source srcset="../assets/images/experiences/HeroExp.webp" type="image/webp">
+                    <img src="../assets/images/experiences/HeroExp.jpg" alt="Dos siluetas sentadas en tablas de paddle surf frente a la puesta de sol" class="Album-img" loading="eager" decoding="async" fetchpriority="high" width="800" height="1037">
+                </picture>
+                <div class="Album-bandFeature Album-bandFeature--momento01" data-reveal-fade>
+                    <picture class="Album-bandMedia Album-bandMedia--accent">
+                        <source srcset="../assets/images/experiences/sunset.avif" type="image/avif">
+                        <source srcset="../assets/images/experiences/sunset.webp" type="image/webp">
+                        <img src="../assets/images/experiences/sunset.jpg" alt="Vista cenital de una piscina de aguas verdes con una persona apoyada en el borde" class="Album-img" loading="eager" decoding="async" width="1000" height="593">
+                    </picture>
+                    <div class="Album-bandFeature-text Album-bandText--subahnale">
+                        <span class="Moment-index" aria-hidden="true">01</span>
+                        <span class="Moment-time">Amanecer</span>
+                        <span class="Moment-name">Subahnale</span>
+                        <span class="Moment-rule" data-reveal-draw aria-hidden="true"></span>
+                        <span class="Moment-meaning">Gloria al Creador</span>
+                        <p class="Moment-copy">Su nombre viene de subhanallah: un motivo de hexágonos como panal, tejido solo por mujeres mayores en un estado casi meditativo. Dicen que es la tela la que elige a su dueño, no al revés.</p>
+                    </div>
+                </div>
+                <div class="Album-bandFeature Album-bandFeature--momento02" data-reveal-fade>
+                    <picture class="Album-bandMedia Album-bandMedia--accent">
+                        <source srcset="../assets/images/experiences/textil.avif" type="image/avif">
+                        <source srcset="../assets/images/experiences/textil.webp" type="image/webp">
+                        <img src="../assets/images/experiences/textil.jpg" alt="Una pareja está a punto de darse la mano entre las olas, con las tablas de surf a cuestas" class="Album-img" loading="lazy" decoding="async" width="666" height="500">
+                    </picture>
+                    <div class="Album-bandFeature-text Album-bandText--ragigenep">
+                        <span class="Moment-index" aria-hidden="true">02</span>
+                        <span class="Moment-time">Media mañana</span>
+                        <span class="Moment-name">Ragi Genep</span>
+                        <span class="Moment-rule" data-reveal-draw aria-hidden="true"></span>
+                        <span class="Moment-meaning">Listos para el camino</span>
+                        <p class="Moment-copy">Ragi, requisito; genep, completo: el motivo que marca cuándo alguien está listo para un viaje. Se teje en pareja con Bintang Empat como regalo de compromiso. Dos telas que solo se separan el día de la boda.</p>
+                    </div>
+                </div>
+                <div class="Album-bandFeature Album-bandFeature--momento03" data-reveal-fade>
+                    <picture class="Album-bandMedia Album-bandMedia--accent">
+                        <source srcset="../assets/images/experiences/explore.avif" type="image/avif">
+                        <source srcset="../assets/images/experiences/explore.webp" type="image/webp">
+                        <img src="../assets/images/experiences/explore.jpg" alt="Cascada gemela de Benang Stokel y Benang Kelambu entre vegetación tropical, sur de Lombok" class="Album-img" loading="lazy" decoding="async" width="1137" height="853">
+                    </picture>
+                    <div class="Album-bandFeature-text Album-bandText--taman">
+                        <span class="Moment-index" aria-hidden="true">03</span>
+                        <span class="Moment-time">Exploración</span>
+                        <span class="Moment-name">Taman</span>
+                        <span class="Moment-rule" data-reveal-draw aria-hidden="true"></span>
+                        <span class="Moment-meaning">El motivo del jardín</span>
+                        <p class="Moment-copy">La isla entera que hay que salir a recorrer: playas, mercados, la costa de Kuta Mandalika. Es el único de los cinco motivos que mira hacia fuera de la villa.</p>
+                    </div>
+                </div>
+                <div class="Album-bandFeature Album-bandFeature--momento04" data-reveal-fade>
+                    <picture class="Album-bandMedia Album-bandMedia--accent">
+                        <source srcset="../assets/images/experiences/atardecer.avif" type="image/avif">
+                        <source srcset="../assets/images/experiences/atardecer.webp" type="image/webp">
+                        <img src="../assets/images/experiences/atardecer.jpg" alt="Pareja sujetando una tabla de surf sobre sus cabezas, en silueta contra el sol poniente" class="Album-img" loading="lazy" decoding="async" width="900" height="375">
+                    </picture>
+                    <div class="Album-bandFeature-text Album-bandText--bintangempat">
+                        <span class="Moment-index" aria-hidden="true">04</span>
+                        <span class="Moment-time">Atardecer</span>
+                        <span class="Moment-name">Bintang Empat</span>
+                        <span class="Moment-rule" data-reveal-draw aria-hidden="true"></span>
+                        <span class="Moment-meaning">Cuatro estrellas</span>
+                        <p class="Moment-copy">Las cuatro estrellas que marcan el calendario agrícola sasak avisan de cuándo cambia la estación. Simbología asociada a la orientación y la esperanza.</p>
+                    </div>
+                </div>
+                <div class="Album-bandFeature Album-bandFeature--momento05" data-reveal-fade>
+                    <picture class="Album-bandMedia Album-bandMedia--accent">
+                        <source srcset="../assets/images/experiences/lights.avif" type="image/avif">
+                        <source srcset="../assets/images/experiences/lights.webp" type="image/webp">
+                        <img src="../assets/images/experiences/lights.jpg" alt="Pareja en un abrazo cercano en la arena, retrato en blanco y negro de grano fino" class="Album-img" loading="lazy" decoding="async" width="736" height="981">
+                    </picture>
+                    <div class="Album-bandFeature-text Album-bandText--wayang">
+                        <span class="Moment-index" aria-hidden="true">05</span>
+                        <span class="Moment-time">Noche</span>
+                        <span class="Moment-name">Wayang</span>
+                        <span class="Moment-rule" data-reveal-draw aria-hidden="true"></span>
+                        <span class="Moment-meaning">El teatro de sombras</span>
+                        <p class="Moment-copy">Las sombras cuentan una historia. En el tenun, este teatro de sombras representa la lucha entre el bien y el mal. Equilibrio entre las fuerzas de la naturaleza y el ser humano.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PISCINAS — foto + texto en columnas, fondo con tinte verde de marca
+             vía color-mix(). La foto (data-reveal-media) se descubre de abajo
+             arriba atada al scroll y el titular se revela línea a línea desde
+             detrás de una máscara — ver el sistema Reveal-* en experiences.css
+             y su cableado GSAP en experiences.js. -->
+        <section class="Pools" aria-labelledby="pools-title">
+            <div class="Pools-media Reveal-media" data-reveal-media>
+                <picture>
+                    <source srcset="../assets/images/shared/CASABRAVA09.avif" type="image/avif">
+                    <source srcset="../assets/images/shared/CASABRAVA09.webp" type="image/webp">
+                    <img src="../assets/images/shared/carousel/CASABRAVA09.jpg" alt="Vista aérea de Casa Brava con piscinas privadas junto a cada villa" class="Pools-img" loading="lazy" width="1920" height="1440">
+                </picture>
+            </div>
+            <div class="Pools-content">
+                <span class="Pools-eyebrow">Piscinas privadas</span>
+                <h2 class="Pools-title" id="pools-title"><span class="Reveal-line" data-reveal-line><span class="Reveal-lineInner">En tu villa de Casa Brava</span></span></h2>
+                <p class="Pools-text">Cada piscina nace como una extensión natural de su villa: un espacio privado, protegido y en calma. La arquitectura abraza el paisaje haciendo que piscina, jardín y villa se fundan en un solo refugio. Aquí el lujo no necesita hacerse notar; se descubre en el silencio, en la intimidad y en la sensación de que todo este lugar existe solo para vosotros.</p>
+            </div>
+        </section>
+
+        <!-- SOBREMESA — díptico de dos fotos. No existe banco de fotografía de
+             gastronomía real en el proyecto, así que el bloque habla de la
+             mesa y el salón como ritual en vez de fingir fotografía de comida.
+             Fondo rosa del Brand Book, para dar ritmo cromático frente al
+             verde de Piscinas. Cada foto es su propio Reveal-media (wipe
+             independiente, la segunda con un pequeño retraso vía
+             data-reveal-delay) — ver experiences.js. -->
+        <section class="Gather" aria-labelledby="gather-title">
+            <div class="Gather-media">
+                <picture class="Reveal-media" data-reveal-media>
+                    <source srcset="../assets/images/shared/CASABRAVA15.avif" type="image/avif">
+                    <source srcset="../assets/images/shared/CASABRAVA15.webp" type="image/webp">
+                    <img src="../assets/images/shared/carousel/CASABRAVA15.jpg" alt="Mesa de comedor de madera maciza con sillas talladas y flores frescas" class="Gather-img Gather-img--table" loading="lazy" width="1699" height="1256">
+                </picture>
+                <picture class="Reveal-media" data-reveal-media data-reveal-delay="0.15">
+                    <source srcset="../assets/images/shared/CASABRAVA18.avif" type="image/avif">
+                    <source srcset="../assets/images/shared/CASABRAVA18.webp" type="image/webp">
+                    <img src="../assets/images/shared/carousel/CASABRAVA18.jpg" alt="Salón con sofá bajo, mesa de centro y luz cálida de lámparas de fibra natural" class="Gather-img Gather-img--lounge" loading="lazy" width="1600" height="1200">
+                </picture>
+            </div>
+            <div class="Gather-content">
+                <span class="Gather-eyebrow">Sobremesa</span>
+                <h2 class="Gather-title" id="gather-title"><span class="Reveal-line" data-reveal-line><span class="Reveal-lineInner">Todo aquí sucede un poco más despacio</span></span></h2>
+                <p class="Gather-text">La luz cambia, la conversación continúa y alguien vuelve a servir una bebida. No hay prisa, ni horarios que interrumpan el momento. Solo el placer de quedarse un rato más.</p>
+            </div>
+        </section>
+
+        <!-- GUÍA CASA BRAVA — Digital Concierge, guía curada (no un directorio)
+             para el perfil concreto de huésped de Casa Brava: diseño, calma,
+             gastronomía con carácter propio, naturaleza. Cuatro capítulos
+             (Costa & Territorio, Surf & Snorkel, Mesa & Café, Bienestar).
+             Nombres en español salvo los préstamos ya asentados en el sector
+             (Surf, Snorkel, Yoga, Spa, Beach Club).
+             Cada categoría tiene su propia tira horizontal corta de
+             scroll-snap, y los chips de navegación de arriba son anclas
+             nativas a cada capítulo (no un filtro por JavaScript: más simple,
+             más accesible, cero dependencias). Cada recomendación pasa dos
+             filtros: que tenga sentido saliendo de Casa Brava en Kuta y que
+             encaje con el huésped de un boutique de diseño.
+             Solo existe fotografía real de UN lugar externo a Casa Brava
+             (Kuta Mandalika) — el resto son tarjetas solo-texto con etiqueta
+             y tiempo aproximado desde la propiedad; nunca fotografía de
+             stock, genérica o generada por IA.
+             CTA unificado en español: "Leer más" en las tarjetas con ficha
+             real de Tripadvisor, nunca se incrusta Tripadvisor en la página;
+             "Reservar" en las tarjetas con enlace de reserva real. Mesa &
+             Café tiene su propio patrón de CTA ("Descubrir el
+             restaurante/café", "Ver carta") porque enlaza al canal oficial de
+             cada sitio, no a una ficha de terceros. Las tarjetas sin enlace
+             no tienen ficha individual verificable con la misma seguridad —
+             se prefiere omitir el enlace antes que enlazar algo dudoso.
+             Las dos experiencias reservables (snorkel en las Gili secretas y
+             clase de surf en Selong Belanak, ambas en Surf & Snorkel)
+             conservan su CTA propio y el aviso de proveedor (GetYourGuide) en
+             .Guide-cardFoot; esos enlaces no llevan ID de afiliado. -->
+        <section class="Guide" aria-labelledby="guide-title">
+            <div class="Guide-intro">
+                <span class="Guide-eyebrow">Guía Casa Brava</span>
+                <h2 class="Guide-title" id="guide-title">El Kuta que solo enseñamos a los nuestros</h2>
+                <p class="Guide-lead">Todo esto se hace saliendo de Casa Brava, en Kuta. Nada de excursiones a dos horas de la villa, nada elegido al azar. Es lo que le diríamos a un amigo, con el mismo cuidado con el que pensamos cada villa.</p>
+            </div>
+
+            <nav class="Guide-nav" aria-label="Categorías de la guía">
+                <ul class="Guide-navList" role="list">
+                    <li role="listitem"><a href="#guide-coast" class="Guide-navLink">Costa &amp; Territorio</a></li>
+                    <li role="listitem"><a href="#guide-surf" class="Guide-navLink">Surf &amp; Snorkel</a></li>
+                    <li role="listitem"><a href="#guide-food" class="Guide-navLink">Mesa &amp; Café</a></li>
+                    <li role="listitem"><a href="#guide-wellness" class="Guide-navLink">Bienestar</a></li>
+                </ul>
+            </nav>
+
+            <!-- Costa & Territorio: costa y paisaje cerca de Kuta. Las ocho
+                 tarjetas comparten la misma estructura .Guide-card, sin
+                 tratamiento especial de foto ni miniatura. -->
+            <div class="Guide-chapter" id="guide-coast">
+                <h3 class="Guide-chapterTitle">Costa &amp; Territorio</h3>
+                <ul class="Guide-track" role="list">
+                    <li class="Guide-card Guide-card--trip" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Playa</span><span class="Guide-cardTime">Aprox. 15 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Kuta Mandalika</h4>
+                            <p class="Guide-cardText">La bahía que da nombre a esta costa. La preferimos a última hora, cuando el mirador de piedra se llena de sombras largas.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g2155769-d27177577-Reviews-Kuta_mandalika-Kuta_Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre Kuta Mandalika en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--surf" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Playa</span><span class="Guide-cardTime">Aprox. 20 min</span></p>
+                            <h4 class="Guide-cardTitle">Mawun</h4>
+                            <p class="Guide-cardText">La misma agua de Kuta, con menos gente y una curva de colinas que la envuelve entera.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--nature" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Playa</span><span class="Guide-cardTime">Aprox. 20 min</span></p>
+                            <h4 class="Guide-cardTitle">Tanjung Aan</h4>
+                            <p class="Guide-cardText">Dos bahías cosidas por arena de azúcar. De las pocas orillas donde el mar no exige nada, solo flotar.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g297733-d3257784-Reviews-Tanjung_Aan_Beach-Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre Tanjung Aan en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--market" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Playa · Marea baja</span><span class="Guide-cardTime">Aprox. 20 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Batu Payung</h4>
+                            <p class="Guide-cardText">La roca que da nombre a la playa se levanta sola sobre el agua. Solo se cruza a pie cuando baja la marea.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g297734-d8783387-Reviews-Batu_Payung_Beach-Mataram_Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre Batu Payung en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--trip" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Mirador · Atardecer</span><span class="Guide-cardTime">Aprox. 15-20 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Bukit Merese</h4>
+                            <p class="Guide-cardText">El mejor atardecer de la zona: una subida corta a pie hasta una cresta con vistas a toda la bahía.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g297733-d10720541-Reviews-Merese_Hill-Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre Bukit Merese en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--cafe" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Cascada · Día completo</span><span class="Guide-cardTime">Aprox. 1,5-2 h desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Cascadas de Benang Kelambu</h4>
+                            <p class="Guide-cardText">Las cascadas reales más cercanas siguen quedando lejos. Merece la pena, pero solo con el día libre de verdad.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g3177248-d2314079-Reviews-Benang_Stokal_and_Benang_Kelambu_Waterfall-Praya_Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre las cascadas de Benang Kelambu en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--nature" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Islas</span><span class="Guide-cardTime">Salida desde el puerto de Tawun, aprox. 45 min-1 h desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Las Gili secretas</h4>
+                            <p class="Guide-cardText">Nanggu, Sudak y Kedis, tres islas diminutas en el suroeste. Están mucho más cerca que las Gili famosas del norte.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--surf" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Islas · Día largo</span><span class="Guide-cardTime">Aprox. 2-2,5 h hasta el embarque, en el norte</span></p>
+                            <h4 class="Guide-cardTitle">Trawangan, Meno y Air</h4>
+                            <p class="Guide-cardText">Las Gili que todo el mundo conoce, con razón: agua turquesa y el ritmo sin motos ya famoso. Embarque en el norte.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Surf & Snorkel: Seger/Selong Belanak/Mawi describen el sitio;
+                 las dos últimas tarjetas son la reserva concreta para quien
+                 quiere que alguien más lo organice. -->
+            <div class="Guide-chapter" id="guide-surf">
+                <h3 class="Guide-chapterTitle">Surf &amp; Snorkel</h3>
+                <ul class="Guide-track" role="list">
+                    <li class="Guide-card Guide-card--surf" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Surf · Todos los niveles</span><span class="Guide-cardTime">Aprox. 5-10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Seger y Gerupuk</h4>
+                            <p class="Guide-cardText">Las olas más cercanas y más amables de la zona. Aquí es donde se aprende bien a surfear.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--cafe" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Surf · Principiantes</span><span class="Guide-cardTime">Aprox. 35-40 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Selong Belanak</h4>
+                            <p class="Guide-cardText">La playa donde recomendamos la primera clase de verdad: rompiente suave, arena en vez de roca, fondo que perdona los primeros wipeouts.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--nature" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Surf · Avanzado</span><span class="Guide-cardTime">Aprox. 20-30 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Mawi</h4>
+                            <p class="Guide-cardText">Una de las olas más serias del sur, con corrientes fuertes cuando entra swell grande. Solo si ya surfeáis con soltura.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--trip" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Snorkel · Islas secretas</span><span class="Guide-cardTime">Salida desde el puerto de Tawun</span></p>
+                            <h4 class="Guide-cardTitle">Las islas que nadie más visita</h4>
+                            <p class="Guide-cardText">Barco privado hacia tres islas diminutas —Nanggu, Sudak y Kedis— con arrecife propio.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Vía GetYourGuide</span>
+                                <a href="https://www.getyourguide.com/kuta-l2849/5-secret-gili-boat-trip-snorkeling-in-southwest-of-lombok-t774601/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Reservar el día de snorkel en las Gili secretas en GetYourGuide (se abre en una pestaña nueva)">Reservar</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--market" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Surf · Principiantes</span><span class="Guide-cardTime">A pocos minutos de Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Tu primera ola, sin prisa</h4>
+                            <p class="Guide-cardText">La ola más generosa del sur: arena en vez de roca, rompiente lenta, un instructor que corrige la postura desde el primer error.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Vía GetYourGuide</span>
+                                <a href="https://www.getyourguide.com/selong-belanak-l192435/lombok-surf-lesson-for-beginner-in-selong-blanak-beach-t635269/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Reservar la clase de surf en Selong Belanak en GetYourGuide (se abre en una pestaña nueva)">Reservar</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Mesa & Café: enlaces al canal oficial de cada sitio (web propia
+                 si existe; si no, su Instagram oficial), nunca a Tripadvisor
+                 ni directorios de terceros. Mismo patrón .Guide-cardFoot/
+                 .Guide-ticketProvider/.Guide-cardLink que las tarjetas de
+                 reserva de Surf & Snorkel: la etiqueta indica el canal, el
+                 enlace es la acción — cero URL visible, cero aspecto de
+                 directorio. -->
+            <div class="Guide-chapter" id="guide-food">
+                <h3 class="Guide-chapterTitle">Mesa &amp; Café</h3>
+                <ul class="Guide-track" role="list">
+                    <li class="Guide-card Guide-card--cafe" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Restaurante</span><span class="Guide-cardTime">Aprox. 5 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">SeaSalt</h4>
+                            <p class="Guide-cardText">El único bistró justo en la playa de Kuta: pescado del día, poco pretencioso, buena mesa después de surfear.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Instagram oficial</span>
+                                <a href="https://www.instagram.com/seasaltlombok/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Descubrir SeaSalt en su perfil oficial de Instagram (se abre en una pestaña nueva)">Descubrir el restaurante</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--cafe" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Restaurante · Postres</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Le Too Much</h4>
+                            <p class="Guide-cardText">Cocina francesa y mediterránea en una cabaña de bambú con aire europeo, para cuando el antojo es de tarta de chocolate.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Web oficial</span>
+                                <a href="https://www.letoomuch.id" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Ver la carta de Le Too Much en su web oficial (se abre en una pestaña nueva)">Ver carta</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--market" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Café</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Milk Espresso</h4>
+                            <p class="Guide-cardText">Café de verdad, servido por gente que sabe de café. De día es la mesa de trabajo de medio Kuta; de noche, la terraza sube a la azotea.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Instagram oficial</span>
+                                <a href="https://www.instagram.com/milk.lombok/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Descubrir Milk Espresso en su perfil oficial de Instagram (se abre en una pestaña nueva)">Descubrir el café</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--nature" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Beach Club</span><span class="Guide-cardTime">Aprox. 10-15 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Mandalika Beach Club</h4>
+                            <p class="Guide-cardText">Piscina infinita a pie de playa, con tumbonas de sobra para quedarse toda la tarde. Sin entrada.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Instagram oficial</span>
+                                <a href="https://www.instagram.com/themandalikabeachclub/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Descubrir Mandalika Beach Club en su perfil oficial de Instagram (se abre en una pestaña nueva)">Descubrir el beach club</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Guru: sin web propia, solo Instagram oficial (@guru.lombok),
+                         mismo patrón que Milk/Mandalika Beach Club. -->
+                    <li class="Guide-card Guide-card--surf" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Café · Desayuno</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Guru</h4>
+                            <p class="Guide-cardText">Jardín abierto entre palmeras y sofás bajos, con café de especialidad y desayunos sin prisa. El que recomendamos siempre.</p>
+                            <div class="Guide-cardFoot">
+                                <span class="Guide-ticketProvider">Instagram oficial</span>
+                                <a href="https://www.instagram.com/guru.lombok/" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Descubrir Guru en su perfil oficial de Instagram (se abre en una pestaña nueva)">Descubrir el café</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="Guide-chapter" id="guide-wellness">
+                <h3 class="Guide-chapterTitle">Bienestar</h3>
+                <ul class="Guide-track" role="list">
+                    <li class="Guide-card Guide-card--surf" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Yoga</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Shanti Yoga Lombok</h4>
+                            <p class="Guide-cardText">Clases abiertas para todos los niveles entre jardines tropicales, dentro de la propia Kuta Mandalika.</p>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--cafe" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Spa · Contraste frío-calor</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava</span></p>
+                            <h4 class="Guide-cardTitle">Rascals Wellness Room</h4>
+                            <p class="Guide-cardText">Sauna, dos baños de hielo y una piscina de magnesio en un boutique adults-only.</p>
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g2155769-d16695432-Reviews-Rascals_Spa-Kuta_Lombok_West_Nusa_Tenggara.html" class="Guide-cardLink" target="_blank" rel="noopener noreferrer" title="Leer más sobre Rascals Spa en Tripadvisor (se abre en una pestaña nueva)">Leer más</a>
+                        </div>
+                    </li>
+
+                    <li class="Guide-card Guide-card--market" role="listitem">
+                        <div class="Guide-cardBody">
+                            <p class="Guide-cardMeta"><span class="Guide-cardTag">Spa · A domicilio</span><span class="Guide-cardTime">Aprox. 10 min desde Casa Brava (o a domicilio)</span></p>
+                            <h4 class="Guide-cardTitle">Dayang Spa</h4>
+                            <p class="Guide-cardText">Masaje tradicional balinés, manos que saben dónde ha estado la sal y el sol todo el día. También podeis pedir que vengan a la villa.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER: fotografía distinta a las ya usadas en la página, cierra con
+         la idea de "vuelves a tu propio refugio". -->
+    <footer class="Footer">
+        <picture>
+            <source srcset="../assets/images/shared/CASABRAVA01.avif" type="image/avif">
+            <source srcset="../assets/images/shared/CASABRAVA01.webp" type="image/webp">
+            <img src="../assets/images/shared/carousel/CASABRAVA01.jpg" alt="Dormitorio con ventana orgánica abierta al jardín tropical de Casa Brava" class="Footer-img" width="2560" height="1920" loading="lazy">
+        </picture>
+        <div class="Footer-wrapper">
+            <div class="Footer-primary">
+                <ul class="Footer-ul">
+                    <li><a href="mailto:casabravareservations@gmail.com" class="Footer-link">casabravareservations@gmail.com</a></li>
+                    <li><a href="https://www.instagram.com/casabrava.lombok/" class="Footer-link" target="_blank" rel="noopener noreferrer">@casabrava.lombok</a></li>
+                </ul>
+            </div>
+            <div class="Footer-secondary">
+                <p class="Footer-copy">&copy; 2026 CASA BRAVA. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

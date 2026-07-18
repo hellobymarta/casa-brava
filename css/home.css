@@ -1,0 +1,1003 @@
+/* ==========================================================
+   HOME — Estilos específicos de index.html
+   Los tokens, el reset, el Header, el Footer y el menú móvil
+   viven en base.css (se carga antes que este archivo).
+========================================================== */
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+/* flex-direction:column + gap: apila el isotipo (.Hero-isoImg) y el bloque
+   de texto (.Hero-subcontent) como una sola unidad centrada, sin offsets
+   fijos en rem ni position:absolute. El mismo layout funciona en
+   escritorio, tablet y móvil sin necesidad de un @media que lo reescriba. */
+.Hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2.5vh, 1.25rem);
+  overflow: hidden;
+}
+
+/* Velo sutil (mismo patrón ya usado en el Hero de villas-suites.html):
+   se mantiene aunque el wordmark ya no está, porque sigue siendo necesario
+   para que el texto claro de .Hero-p (arriba y abajo del encuadre) se lea
+   sobre las zonas más luminosas de cielo y hormigón de la foto. No compite
+   con la fotografía: es la propia imagen quien protagoniza el Hero. */
+.Hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(44, 48, 54, 0.2), rgba(44, 48, 54, 0.35));
+  z-index: 1;
+}
+
+.Hero-img, .Closing-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* La fuente de Closing es vertical (ducha exterior, 1600x2133): en pantallas
+   anchas el recorte de "cover" centrado perdería el cabezal de ducha y las
+   hornacinas de piedra, que son el punto focal. Sesga el encuadre hacia
+   arriba para conservarlo. */
+.Closing-img {
+  object-position: center 25%;
+}
+
+/* position:relative (no absolute): participa en el flex column de .Hero
+   para centrarse junto a .Hero-subcontent como una sola unidad — z-index
+   sigue haciendo falta porque .Hero::before (el velo oscuro) es un
+   elemento posicionado con z-index:1 que, si no, taparía el isotipo.
+   height: auto es obligatorio, no decorativo: el <img> lleva
+   width="120" height="120" en el HTML (reserva de espacio nativa) y esos
+   atributos actúan como CSS de baja prioridad. Sin height:auto aquí, el
+   height="120" del HTML permanecería fijo mientras el width se encoge con
+   el clamp, aplastando el logotipo. Mismo patrón aplicado en
+   .Location-previewImg más abajo. */
+.Hero-isoImg {
+  position: relative;
+  z-index: 2;
+  width: clamp(4.5rem, 14vw, 7.5rem);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  opacity: 0.8;
+}
+
+/* position:relative (no absolute + top:calc(50% + 5.5rem)): ese offset
+   fijo en rem sumado a un porcentaje de la altura es lo que hacía que el
+   bloque se desplazara o se recortara en pantallas más bajas — ver el
+   comentario grande en .Hero más arriba. Al ser un hijo normal del flex
+   column, se centra solo, en cualquier altura de viewport. */
+.Hero-subcontent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.Hero-p {
+  /* Gris neutro derivado de --color-bg oscurecido levemente hacia
+     --color-text mediante color-mix: mismo resultado visual sobre la
+     foto del Hero sin introducir ningún color fuera de :root. */
+  color: color-mix(in srgb, var(--color-bg) 90%, var(--color-text) 10%);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Jerarquía tipográfica explícita entre la etiqueta ("El origen") y la
+   frase principal, cada una con su propio clamp(): da impacto real en
+   escritorio sin desbordar en móvil, escalando con el viewport en vez de
+   depender de un tamaño de fuente fijo. */
+.Hero-subcontent .Hero-p {
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+}
+
+.Hero-subcontent .Hero-p:first-child {
+  font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+  letter-spacing: 0.22em;
+  opacity: 0.85;
+}
+
+/* Ancla siempre en la esquina inferior derecha, en todas las
+   resoluciones — a diferencia de .Hero-subcontent, este bloque es breve
+   (dos líneas) y no necesita reflow: fijarlo evita que compita por
+   espacio con el bloque central. Ver el @media de abajo para el ajuste
+   de esquina en móvil. */
+.Hero-content {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  max-width: calc(50% - 2rem);
+  text-align: right;
+  font-size: .8rem;
+  z-index: 2;
+}
+
+.Anexo {
+  font-size: 0.8em;
+}
+
+/* ==========================================================
+   MARQUEE
+========================================================== */
+
+/* Color: fondo marino (--color-text) + texto rosa (--color-lg), 9.8:1 de
+   contraste. El rosa no se repite como fondo aquí porque ya protagoniza
+   el Interludio más abajo; como texto, es el mismo hilo de color de
+   siempre.
+   Tipografía: peso 300, igual que el título de Contact, la cita de
+   Closing y la frase del Interludio — mismo idioma editorial en todo el
+   sitio. font-variant-caps: small-caps sobre texto en formato título (no
+   todo mayúsculas) da un tratamiento de versalita de revista.
+   Separador: un punto simple entre frases (no el isotipo, cuyo trazo se
+   pierde a 14-18px) marca el ritmo editorial sin assets adicionales.
+   Una sola fila con un único mensaje se lee mejor que varias filas
+   repitiendo contenido. Las dos .Marquee-wrapper duplicadas dentro de la
+   fila son el truco habitual para el loop infinito sin costura. */
+.Marquee {
+  overflow: hidden;
+  background: var(--color-text);
+  padding: clamp(1.5rem, 4vh, 2.5rem) 0;
+}
+
+@media (max-width: 576px) {
+  /* Más fina y con texto más pequeño: en móvil el clamp de escritorio
+     ya tocaba su mínimo pero seguía siendo una franja gruesa que dejaba
+     leer poca frase por pantalla. */
+  .Marquee {
+    padding: 0.85rem 0;
+  }
+
+  .Marquee-span {
+    padding-left: 1.25rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+  }
+
+  .Marquee-span::after {
+    margin-left: 1.25rem;
+  }
+}
+
+.Marquee-row {
+  display: flex;
+  overflow: hidden;
+}
+
+.Marquee-wrapper {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee var(--duration-36000) linear infinite;
+}
+
+/* Pausa al pasar el ratón: el texto es aria-hidden y puramente decorativo
+   (no gana foco de teclado a propósito, no hay información que un lector
+   de pantalla deba anunciar dos veces), pero para quien navega con ratón
+   sigue el espíritu de WCAG 2.2.2 — nada en movimiento continuo sin forma
+   de detenerlo. */
+.Marquee:hover .Marquee-wrapper {
+  animation-play-state: paused;
+}
+
+.Marquee-span {
+  display: inline-flex;
+  align-items: center;
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+  /* "Spectral", no var(--font-title): única excepción tipográfica del
+     sitio. El resto de titulares sigue en Fraunces (var(--font-title),
+     ver base.css); aquí se referencia el nombre de familia directamente
+     a propósito, para que esta regla no siga al token si cambia. */
+  font-family: "Spectral", serif;
+  font-weight: 300;
+  font-variant-caps: small-caps;
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  letter-spacing: 0.08em;
+  color: var(--color-lg);
+}
+
+.Marquee-span::after {
+  content: "•";
+  display: inline-block;
+  margin-left: clamp(1.5rem, 3vw, 3rem);
+  font-size: 0.5em;
+  color: var(--color-lg);
+  opacity: 0.55;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* ==========================================================
+   FEATURE (villas / experiences)
+========================================================== */
+
+/* max-width + margin-inline:auto: mismo límite que ya usa .Location más
+   abajo. Sin él, en un monitor ultraancho las dos columnas (foto + texto)
+   se estiran de borde a borde con solo el padding lateral de por medio,
+   rompiendo la longitud de línea de lectura del texto y descompensando
+   la sección frente a Location, que sí está contenida. */
+.Feature {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  max-width: 1600px;
+  margin-inline: auto;
+  gap: 3.75rem;
+  padding: 8rem 6rem;
+  border-bottom: 1px solid var(--color-accent);
+
+  align-items: center;
+}
+
+/* Sin override de align-self, .Feature-media hereda el align-items:center
+   de .Feature: comparte el mismo centrado vertical que .Feature-content
+   en vez de quedar anclada arriba de su columna en pantallas altas. */
+.Feature-media {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* min-height con doble declaración (100vh + 100svh): mismo fix ya usado
+   en .AboutHero (about.css) para evitar el salto visual cuando la barra
+   de navegador móvil aparece/desaparece durante el scroll — estas cuatro
+   secciones son sticky a pantalla completa igual que aquella, así que
+   necesitan la misma red de seguridad. 100svh solo sobrescribe en los
+   navegadores que lo soportan. */
+.Feature--villas, .Feature--reverse, .Closing, .Location {
+  position: sticky;
+  top: 0px;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--color-bg);
+}
+
+/* layout reverse */
+.Feature--reverse .Feature-media {
+  order: 2;
+}
+
+.Feature--reverse .Feature-content {
+  order: 1;
+}
+
+.Feature-media,
+.Feature-content {
+  flex: 1;
+}
+
+.Feature-image {
+  width: 100%;
+  display: block;
+  border-radius: 2.5rem;
+}
+
+/* THUMBNAILS */
+.Feature-boxes {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
+}
+
+.Feature-previewButton {
+  display: block;
+  padding: 0;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.Feature-thumb {
+  width: 100%;
+  display: block;
+
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  transition: transform var(--duration-350) ease;
+}
+
+.Feature-previewButton:hover .Feature-thumb,
+.Feature-previewButton:focus-visible .Feature-thumb {
+  transform: scale(.97);
+}
+
+/* CONTENT */
+.Feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Content--reverse {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.Feature-title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.Feature-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-accent);
+  font-family: var(--font-title);
+  font-size: 15px;
+}
+
+.Feature-text {
+  font-weight: 200;
+  font-size: 1.125rem;
+}
+
+/* Mismo lenguaje visual que .Button-book (base.css): idéntico border-radius,
+   mismas unidades de padding/tipografía y mismo gesto de hover (color +
+   translateY), para que "Discover More" y "Book now" se lean como el
+   mismo sistema de botones, no como dos componentes distintos. */
+.Feature-button {
+  width: max-content;
+  display: inline-block;
+  background-color: var(--color-brand);
+  color: var(--color-bg);
+  text-transform: uppercase;
+  font-size: .85em;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.3rem;
+  transition: background-color var(--duration-300) ease, transform var(--duration-300) ease;
+}
+
+.Feature-button:hover,
+.Feature-button:focus-visible {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================
+   FEATURE — REVERSE (Experiences)
+   Verde bosque derivado al 100% de los dos tokens de marca
+   (--color-brand + --color-text, sin hex nuevo): más oscuro que el verde
+   plano de marca para sostener 5.8:1 de contraste con el texto claro,
+   coherente con el contenido del bloque (yoga, jacuzzi, bienestar).
+========================================================== */
+.Feature--reverse {
+  background-color: color-mix(in srgb, var(--color-brand) 55%, var(--color-text) 45%);
+  border-bottom-color: rgba(251, 249, 241, 0.15);
+}
+
+.Feature--reverse .Feature-title,
+.Feature--reverse .Feature-text {
+  color: var(--color-bg);
+}
+
+.Feature--reverse .Feature-subtitle {
+  color: var(--color-lg);
+}
+
+/* El botón en verde de marca sobre el nuevo fondo (también verde) casi
+   desaparecía por falta de contraste entre ambos; además el texto marino
+   sobre verde de marca no llegaba a 4.5:1. Botón claro sobre fondo oscuro
+   resuelve las dos cosas y es coherente con el resto del sitio. */
+.Feature--reverse .Feature-button {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.Feature--reverse .Feature-button:hover,
+.Feature--reverse .Feature-button:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* El foco visible global es marino (--color-accent): invisible sobre este
+   fondo oscuro y sobre el propio botón en su estado hover/focus. Se ajusta
+   solo el color del anillo, no su grosor ni offset. */
+.Feature--reverse .Feature-button:focus-visible {
+  outline-color: var(--color-bg);
+}
+
+/* ==========================================================
+   INTERLUDE (pausa editorial entre Features y Closing)
+   Bloque de color + frase, sin fotografía: ver comentario en index.html.
+   Altura menor que una sección de contenido — se lee como una respiración,
+   no como un bloque más. El degradado usa solo --color-lg y una mezcla con
+   --color-bg (color-mix, sin hex nuevo) para dar algo de profundidad sin
+   recurrir a una imagen de textura.
+========================================================== */
+.Interlude {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32vh;
+  padding: clamp(3rem, 8vh, 5rem) 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-lg), color-mix(in srgb, var(--color-lg) 75%, var(--color-bg) 25%));
+}
+
+.Interlude-quote {
+  max-width: 40rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+/* ==========================================================
+   PREVIEW (lightbox modal de las miniaturas Feature)
+   Diálogo activado por clic (no por hover): funciona igual en
+   ratón, teclado y pantallas táctiles. Ver js/home.js.
+   z-index: var(--z-modal) (30, la capa más alta): este lightbox debe
+   cubrir toda la página, Header incluido, no solo el contenido — ningún
+   otro token de la escala de capas (ver base.css) es suficiente aquí.
+========================================================== */
+
+.Preview {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity var(--duration-300) ease, visibility var(--duration-300) ease;
+  z-index: var(--z-modal);
+}
+
+.Preview.isActive {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.Preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(44, 48, 54, 0.85);
+  cursor: pointer;
+}
+
+.Preview-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Límite de tamaño: la imagen nunca ocupa más de esto, en ningún viewport */
+  max-width: min(90vw, 70rem);
+  max-height: 85vh;
+
+  transform: scale(0.96);
+  transition: transform var(--duration-300) ease;
+}
+
+.Preview.isActive .Preview-dialog {
+  transform: scale(1);
+}
+
+.Preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+
+  /* "contain" mantiene la proporción y muestra la imagen completa: nunca recorta */
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+.Preview-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+
+  /* Área táctil mínima de 44x44px (WCAG 2.2, 2.5.8) */
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+
+  color: var(--color-bg);
+  font-size: 1.75rem;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background-color var(--duration-200) ease;
+}
+
+.Preview-close:hover,
+.Preview-close:focus-visible {
+  background-color: color-mix(in srgb, var(--color-bg) 15%, transparent);
+}
+
+.Preview-caption {
+  display: block;
+  margin-top: 1rem;
+
+  text-align: center;
+  color: var(--color-bg);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .Preview {
+    padding: 1rem;
+  }
+
+  .Preview-close {
+    top: -2.5rem;
+  }
+}
+
+/* ==========================================================
+   CLOSING
+   La fotografía respira entera (nada la tapa); el contenido se ancla
+   abajo a la izquierda como el cierre de un editorial de revista, y un
+   degradado direccional —mismo patrón que Hero, Villas y Experiences—
+   garantiza la lectura del texto sobre la imagen.
+========================================================== */
+
+.Closing {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.Closing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(44, 48, 54, 0.75) 0%, rgba(44, 48, 54, 0.3) 45%, rgba(44, 48, 54, 0) 70%);
+  z-index: 1;
+}
+
+.Closing-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 38rem;
+  padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Titular editorial: mismo peso ligero (300) y misma familia que el
+   título de Contact, sin copiar su tratamiento (aquí no va recortado ni
+   en mayúscula-minúscula mixta): es la segunda vez que el sitio usa este
+   recurso tipográfico, ya empieza a leerse como un lenguaje propio. */
+.Container-p {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-style: normal;
+  font-size: clamp(2rem, 4vw, 5rem);
+  line-height: 1.15;
+  color: var(--color-bg);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.Cta-p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--color-bg);
+  opacity: 0.9;
+  margin-bottom: 1.1rem;
+}
+
+/* CTA como enlace con flecha (mismo lenguaje que el envío de Contact) en
+   vez de botón relleno: deja que la fotografía siga siendo protagonista
+   hasta el último elemento de la sección. */
+.Cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+
+  background: none;
+  color: var(--color-bg);
+
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+
+  transition: border-color var(--duration-300) ease, color var(--duration-300) ease;
+}
+
+.Cta-buttonIcon {
+  transition: transform var(--duration-300) ease;
+}
+
+.Cta-button:hover,
+.Cta-button:focus-visible {
+  color: var(--color-lg);
+  border-color: var(--color-lg);
+}
+
+.Cta-button:hover .Cta-buttonIcon,
+.Cta-button:focus-visible .Cta-buttonIcon {
+  transform: translateX(4px);
+}
+
+/* Mismo motivo que en Feature--reverse: el foco visible global es marino,
+   invisible sobre esta fotografía oscurecida. */
+.Cta-button:focus-visible {
+  outline-color: var(--color-bg);
+}
+
+/* ==========================================================
+   LOCATION
+========================================================== */
+
+/* Verde muy diluido —derivado 100% de --color-brand mezclado con
+   --color-bg, sin hex nuevo— conecta con "ubicación, terreno, geografía"
+   y con el verde que protagoniza Experiences, dando a esta sección su
+   propio estado cromático dentro del ritmo de color de la página.
+   Contraste del texto marino existente sobre este fondo: 9.3:1. */
+.Location {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: 5rem 2rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 5rem;
+
+  background-color: color-mix(in srgb, var(--color-brand) 30%, var(--color-bg) 70%);
+}
+
+.Location-map {
+  width: 100%;
+}
+
+.Location-mapWrapper {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  position: relative;
+}
+
+.Location-mapSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Capa invisible por encima del mapa para los puntos interactivos */
+.Location-hotspots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- Puntos interactivos (Hotspots) --- */
+.Location-hotspot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+
+  /* Tamaño táctil mínimo WCAG 2.2 (2.5.8): 44x44px */
+  inline-size: 2.75rem;
+  aspect-ratio: 1;
+
+  transform: translate(-50%,-50%);
+
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  transition: transform var(--duration-300);
+}
+
+/* Coordenadas en % de los puntos sobre el mapa */
+.Location-hotspot[data-location="casa-brava"] { top: 82%; left: 48%; }
+.Location-hotspot[data-location="playas"]     { top: 85%; left: 52%; }
+.Location-hotspot[data-location="kuta"]       { top: 71%; left: 50%; }
+
+.Location-hotspotPulse,
+.Location-hotspotCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.Location-hotspotCenter {
+  inline-size: .6rem;
+  background: var(--color-accent);
+}
+
+.Location-hotspotPulse {
+  inline-size: 1.5rem;
+  background: var(--color-accent);
+  animation: pulse var(--duration-2800) ease infinite;
+}
+
+/* Estados Activo, Hover y Foco */
+.Location-hotspot:is(:hover, :focus-visible, .isActive) .Location-hotspotCenter {
+  background-color: var(--color-text);
+}
+
+.Location-hotspot:hover {
+  transform: translate(-50%,-50%) scale(1.12);
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%,-50%) scale(0.6); opacity: 0.6; }
+  50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0; }
+  100% { transform: translate(-50%,-50%) scale(0.6); opacity: 0.6; }
+}
+
+.Location-preview {
+  position: absolute;
+  /* Token compartido con el resto de overlays flotantes del sitio (ver
+     --z-modal en base.css) en vez de un número suelto: evita que esta
+     tarjeta comparta accidentalmente capa de apilamiento con .Header
+     (también en 20) si alguna vez llegan a coincidir en pantalla. */
+  z-index: var(--z-modal);
+  width: 16rem;
+  max-width: calc(100vw - 3rem);
+
+  background: var(--color-bg);
+  border-radius: 1rem;
+  overflow: hidden;
+
+  box-shadow: 0 .8rem 1rem color-mix(in srgb, var(--color-text) 10%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  /* Solo opacity/visibility: left y top los fija el JS de golpe (posición,
+     no animación), así que transicionarlos aquí no tendría efecto. */
+  transition: opacity var(--duration-450), visibility var(--duration-450);
+}
+
+.Location-preview.isActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* height: auto es obligatorio aquí, no decorativo: el <img> lleva
+   width="1179" height="1418" en el HTML (reserva de espacio nativa,
+   evita CLS), y esos atributos actúan como CSS de baja prioridad. El
+   aspect-ratio de abajo solo puede recalcular una dimensión que esté en
+   auto — sin height:auto aquí quedaría "ocupado" por el atributo HTML y
+   se ignoraría, rompiendo el recorte 4/3. */
+.Location-previewImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.Location-previewBody {
+  padding: 1rem;
+}
+
+.Location-previewLabel {
+  font-size: .85rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.Location-content {
+  max-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+
+  gap: 1.5rem;
+}
+
+/* --- Textos (lado derecho) --- */
+.Location-subtitulo {
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: block;
+  color: var(--color-accent);
+  font-family: var(--font-title);
+}
+
+.Location-title {
+  font-size: clamp(2rem,4vw,3rem);
+  font-weight: normal;
+  line-height: 1.15;
+}
+
+.Location-quote {
+  font-style: italic;
+  font-size: 16px;
+  color: var(--color-accent);
+}
+
+.Location-description {
+  font-weight: 300;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+/* --- Mostrar/ocultar panel activo --- */
+.Location-panel {
+  display: none;
+}
+
+.Location-panel.isActive {
+  display: grid;
+  animation: fadeIn var(--duration-500) ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .Location {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    padding: 6rem 1.5rem;
+  }
+  .Location-mapWrapper {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  .Location-content {
+    max-width: none;
+    text-align: center;
+  }
+  .Location-title {
+    font-size: 32px;
+  }
+}
+
+/* El mapa se estrecha mucho más rápido que la tarjeta flotante de 16rem:
+   en un mapWrapper de ese ancho, el hueco a un lado de un hotspot (todos
+   cerca del centro horizontal, ver coordenadas arriba) ya no basta para
+   colocar la tarjeta sin que cubra el propio punto, igual que ya evita
+   .selectLocationHandler en escritorio. Se reduce su ancho para que
+   vuelva a caber a un lado sin solaparse. */
+@media (max-width: 560px) {
+  .Location-preview {
+    width: 10.5rem;
+  }
+
+  .Location-previewBody {
+    padding: 0.65rem;
+  }
+
+  .Location-previewLabel {
+    font-size: 0.7rem;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE — Home
+========================================================== */
+@media (max-width: 992px) {
+
+  .Feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* .Feature--villas y .Feature--reverse (Experiencias) heredaban el
+     padding y el min-height:100vh pensados para el efecto sticky de dos
+     columnas en escritorio. Apiladas en una sola columna, ese padding de
+     8rem/6rem dejaba casi sin ancho útil la imagen y el texto (ilegibles
+     en móvil), y el sticky de pantalla completa ya no tiene la segunda
+     columna con la que alternar, así que solo añadía altura vacía. */
+  .Feature {
+    padding: 3.5rem 1.25rem;
+    gap: 2rem;
+  }
+
+  .Feature--villas,
+  .Feature--reverse {
+    position: static;
+    min-height: auto;
+  }
+
+  .Feature-title {
+    font-size: 1.4rem;
+  }
+
+  .Feature-subtitle {
+    font-size: 13px;
+  }
+
+  .Feature-text {
+    font-size: 0.9rem;
+  }
+
+  .Feature-boxes {
+    gap: 0.6rem;
+  }
+}
+
+/* Hero — solo ajustes de espaciado/tamaño puntuales: la composición base
+   (flex column centrado + esquina inferior fija) ya funciona igual en
+   cualquier altura de viewport, así que aquí no hace falta cambiar
+   ninguna posición, solo afinar el aire en pantallas más estrechas. */
+@media (max-width: 600px) {
+  .Hero {
+    gap: 0.6rem;
+  }
+
+  .Hero-content {
+    right: 1.25rem;
+    bottom: 1.25rem;
+    max-width: calc(100% - 2.5rem);
+  }
+}
+
+/* Closing: en escritorio el bloque queda alineado a la izquierda sobre la
+   fotografía; en móvil, con menos ancho disponible, centrado y con un
+   punto menos de tamaño se lee mejor como cierre. */
+@media (max-width: 600px) {
+  .Closing-content {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .Container-p {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+  }
+
+  .Cta-p {
+    font-size: 0.95rem;
+  }
+
+  .Cta-button {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,1144 @@
+/* ==========================================================
+   EXPERIENCES — Estilos específicos de html/experiences.html
+   Tokens, reset, Header, Footer y menú móvil viven en base.css.
+========================================================== */
+
+/* ==========================================================
+   GALERÍA "SIENTE LA EXPERIENCIA"
+========================================================== */
+.Intro-gallery {
+  width: 100%;
+  /* padding-top compensa el Header fijo para que el título no quede tapado.
+     Ya no fija background-color: la única sección que usa esta clase es
+     Estampas (.Album.Intro-gallery en el HTML) y su fondo lo gobierna
+     .Album, más abajo en esta misma hoja — fijarlo aquí también sería una
+     declaración muerta, siempre pisada por la cascada. */
+  padding: 9rem 4rem 6rem;
+}
+
+/* ==========================================================
+   MOMENT — nombre/motivo/significado/texto de un momento del día, dentro
+   de las bandas de texto de Estampas (.Album-bandText). Rituals
+   como sección independiente se eliminó: su contenido vive ahora aquí, en
+   la portada de la página — de ahí que este bloque conserve el nombre
+   genérico Moment en vez de uno con prefijo Album, por si vuelve a
+   reutilizarse en otra composición más adelante.
+========================================================== */
+
+/* Índice tipográfico (01–05): sustituye al panel de color que llevaba
+   cada momento — recurso habitual en editoriales de arquitectura/
+   hotelería para numerar capítulos. font-family: Manrope (var(--font-main)),
+   no Fraunces (var(--font-title)): Fraunces es una serif "old style" y sus
+   cifras de estilo antiguo dibujan un trazo diagonal sobre el cero que se
+   lee como un tachado superpuesto al número. color usa --moment-tint (ver
+   Album-bandText--* más abajo) como acento por momento, con un fallback
+   neutro para cualquier uso fuera de Estampas. aria-hidden en el HTML:
+   el orden real ya lo transmite el DOM y Moment-time ("Amanecer", "Media
+   mañana"…), el número es solo un recurso gráfico. */
+.Moment-index {
+  display: block;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--moment-tint, color-mix(in srgb, var(--color-text) 55%, transparent));
+}
+
+.Moment-time {
+  display: block;
+  margin-top: 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+
+.Moment-name {
+  margin-top: 0.3rem;
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: var(--color-text);
+}
+
+/* Eco de Album-titleRule (ver el bloque ESTAMPAS más abajo) para que cada
+   banda comparta la misma gramática titular→línea→texto de apoyo que el
+   cover, no solo la primera: aquí de un único tono —el propio
+   --moment-tint de la banda, ver Album-bandText--* más abajo— en vez del
+   degradado de los cinco tonos, que se queda reservado solo para el
+   titular principal de la sección. */
+.Moment-rule {
+  display: block;
+  margin-top: 0.75rem;
+  width: 3rem;
+  height: 2px;
+  transform-origin: left;
+  background-color: var(--moment-tint, color-mix(in srgb, var(--color-text) 55%, transparent));
+}
+
+.Moment-meaning {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-text) 85%, transparent);
+}
+
+.Moment-copy {
+  margin-top: 0.85rem;
+  max-width: 26rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 85%, transparent);
+}
+
+/* Etiqueta pequeña compartida por Pools, Gather, Estampas y Guide (mismo
+   patrón que .Origin-eyebrow en about.css): un único bloque de reglas en
+   vez de repetir las mismas ocho declaraciones cuatro veces. */
+.Pools-eyebrow,
+.Gather-eyebrow,
+.Album-eyebrow,
+.Guide-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================
+   SISTEMA DE REVELADO COMPARTIDO — Piscinas, Scene, Sobremesa y Estampas
+   usan la misma gramática visual en vez de efectos sueltos: la fotografía
+   se descubre con un wipe (clip-path, nunca un
+   fade) atado al scroll (GSAP + ScrollTrigger scrub, ver
+   js/experiences.js) mientras el titular se revela línea a línea desde
+   detrás de una máscara (overflow:hidden + translateY), una sola vez, al
+   entrar en pantalla — nunca scrub en el texto, que se lee mejor con una
+   sola entrada limpia que seguir el scroll a medias.
+   Con prefers-reduced-motion, JS nunca crea el ScrollTrigger — añade
+   directamente Reveal-media--static / Reveal-line--static, que esta hoja
+   deja ya en el estado final (sin clip, sin desplazamiento): el contenido
+   nunca depende de la animación para existir. */
+/* Importante: ninguna de estas clases oculta nada por defecto. El estado
+   "clipado"/"desplazado" lo aplica js/experiences.js con gsap.set() justo
+   antes de animar — solo cuando confirma que GSAP, ScrollTrigger y
+   prefers-reduced-motion se lo permiten. Así, sin JS (o si el CDN
+   fallara), la foto y el titular se ven enteros desde el primer
+   fotograma: la animación es una mejora, nunca una condición para leer
+   el contenido. overflow:hidden se mantiene siempre porque también
+   recorta el desbordamiento del paralax de la imagen interior. */
+.Reveal-media {
+  overflow: hidden;
+}
+
+.Reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+.Reveal-lineInner {
+  display: inline-block;
+}
+
+/* ==========================================================
+   PISCINAS — foto + texto en columnas (mobile-first: apilado por
+   defecto, dos columnas a partir de 700px). Composición deliberadamente
+   distinta del Stack (interactivo, sin fondo de color) y del Scene (foto a
+   sangre con overlay): aquí la foto vive en su propio marco, sin
+   superponer texto encima, para que el recorrido entre bloques tenga
+   ritmo. Tinte verde de marca muy diluido en toda la sección (no solo en
+   un bloque de texto sólido) para que se sienta atmosférico, no un cartel.
+========================================================== */
+.Pools {
+  display: grid;
+  gap: 0;
+  background-color: color-mix(in srgb, var(--color-brand) 16%, var(--color-bg) 84%);
+}
+
+.Pools-media {
+  overflow: hidden;
+}
+
+/* Sin zoom de hover ni ningún otro movimiento una vez visible: solo el
+   wipe de entrada (Reveal-media, ver experiences.js) al llegar al
+   viewport. */
+.Pools-img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.Pools-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 8vw, 5rem);
+}
+
+.Pools-title {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Pools-text {
+  margin-top: 1rem;
+  max-width: 26rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+@media (min-width: 700px) {
+  .Pools {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: stretch;
+  }
+
+  .Pools-img {
+    aspect-ratio: auto;
+  }
+}
+
+/* Revelado en cascada del texto al entrar en pantalla: solo se activa si
+   js/experiences.js añade .Pools--animated (IntersectionObserver
+   disponible y sin prefers-reduced-motion) — mismo patrón que
+   .HeroTransition--animated en about.css. Sin esa clase, el bloque es
+   visible desde el primer fotograma. La foto (.Pools-media) ya no entra
+   por aquí: usa el sistema de Reveal-media con scrub de GSAP, para no
+   animar dos veces el mismo elemento con dos sistemas distintos. */
+.Pools--animated .Pools-content > * {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.Pools--animated .Pools-content > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.Pools--animated .Pools-content > *:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+.Pools--animated.Pools--visible .Pools-content > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   SOBREMESA — díptico de dos fotos (mobile-first: una columna apilada por
+   defecto, dos columnas de imagen + texto a partir de 700px). Tercera
+   composición distinta de las tres anteriores: ni interactiva, ni una sola
+   foto a sangre, ni foto+texto en columnas simple — aquí son DOS fotos
+   compartiendo el mismo marco, para que el bloque se lea como pieza propia.
+   Fondo rosa del Brand Book (--color-lg): da ritmo cromático frente al
+   verde de Piscinas sin salirse de la paleta oficial.
+========================================================== */
+.Gather {
+  display: grid;
+  background-color: color-mix(in srgb, var(--color-lg) 55%, var(--color-bg) 45%);
+}
+
+.Gather-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+/* Mismo criterio que .Pools-img: sin zoom de hover, la fotografía queda
+   fija en cuanto termina su wipe de entrada. */
+.Gather-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0.2rem;
+}
+
+/* La mesa (más presencia visual) ocupa las dos columnas arriba; el salón
+   queda debajo, a una columna: evita que el díptico se sienta como dos
+   fotos idénticas en tamaño, mismo principio de jerarquía que ya usa el
+   mosaico de About para las piezas que sí quieren protagonismo. */
+.Gather-img--table {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 3;
+}
+
+.Gather-img--lounge {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+
+.Gather-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 8vw, 5rem);
+}
+
+.Gather-title {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Gather-text {
+  margin-top: 1rem;
+  max-width: 26rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+@media (min-width: 700px) {
+  .Gather {
+    grid-template-columns: 1fr 1.3fr;
+  }
+
+  /* Orden invertido frente a Piscinas (texto a la izquierda, fotos a la
+     derecha): el mismo componente de dos columnas no se repite en el
+     mismo orden dos veces en la página. */
+  .Gather-content {
+    order: 1;
+  }
+
+  .Gather-media {
+    order: 2;
+  }
+
+  .Gather-img--table,
+  .Gather-img--lounge {
+    grid-column: auto;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Mismo mecanismo de revelado en cascada que Piscinas, solo para el
+   texto: solo se activa con .Gather--animated (JS) y .Gather--visible.
+   Las dos fotos (.Gather-img--table/--lounge) ya no entran por aquí: cada
+   una tiene su propio Reveal-media con scrub de GSAP. */
+.Gather--animated .Gather-content > * {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.Gather--animated .Gather-content > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.Gather--animated .Gather-content > *:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+.Gather--animated.Gather--visible .Gather-content > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   ESTAMPAS — portada de la página. Ver el comentario en experiences.html
+   para el análisis de la referencia (stockholm70.qodeinteractive.com) y
+   su reinterpretación para Casa Brava.
+   Una sola retícula CSS Grid de 6 columnas (.Album-grid, ver el bloque
+   GRID más abajo) para toda la composición: un único contenedor con seis
+   columnas iguales y cada bloque en grid-column: span 2 o span 3
+   garantiza la alineación por construcción, fila a fila, evitando el
+   desajuste de redondeo que produciría mezclar dos sistemas de medida
+   distintos (p. ej. flexbox con anchos ad hoc junto a grid con
+   fracciones iguales) en filas consecutivas:
+     Fila 1 (2 bloques × 3 columnas): Titular + paddleboard, dimensionada
+       a calc(100vh - 9rem) para caber en el primer viewport sin scroll.
+     Fila 2 (3 bloques × 2 columnas): Subahnale + Ragi Genep + Taman.
+     Fila 3 (2 bloques × 3 columnas): Bintang Empat + Wayang.
+   Fondo blanco en toda la sección. Fotografía siempre a sangre (sin
+   tarjeta, sin radio, sin recorte forzado a un ratio ajeno al suyo en
+   mobile — ver .Album-img más abajo). El texto vive siempre en su propia
+   columna con padding generoso, nunca superpuesto a una fotografía.
+   Color: un único acento por momento —el número de índice y una línea
+   fina, ambos en el mismo tono de tinta (--tint-ink-*, ver más abajo,
+   contraste ≥3:1 verificado contra blanco)— y una línea con los cinco
+   tonos del día bajo el titular principal. Nada más lleva color: ni
+   tarjetas, ni chips, ni fondos de sección.
+   Revelado: Reveal-media (wipe con scrub) en cada fotografía,
+   Reveal-line en el titular, [data-reveal-fade] en cada bloque de texto,
+   [data-reveal-draw] en la línea del titular y en cada Moment-rule —
+   mismo sistema de siempre, ver experiences.js. */
+.Album {
+  /* padding-top explícito, no el shorthand que traía .Intro-gallery
+     (9rem 4rem 6rem): esta sección ya no es una tarjeta contenida, es una
+     sucesión de bandas a sangre, así que el padding lateral/inferior de
+     Intro-gallery debe quedar en 0 aquí — pero el padding-top que
+     despeja el Header fijo (position: fixed, ver base.css) sigue
+     haciendo falta, con el mismo valor ya probado (9rem desktop, 8rem en
+     el @media de móvil de más abajo). Como .Album se declara después de
+     .Intro-gallery en esta misma hoja, sus cuatro lados ganan la cascada
+     sobre el shorthand `padding` de Intro-gallery entero, no solo el top. */
+  padding: 9rem 0 0;
+  background-color: var(--color-bg);
+
+  /* Los cinco tonos de tinta, uno por momento del día (amanecer → noche),
+     definidos una sola vez aquí para que tanto Album-titleRule como cada
+     Album-bandText--* lean del mismo valor. Cada color-mix() se verificó
+     a mano con la fórmula de contraste WCAG (luminancia relativa) antes
+     de fijarlo — todos ≥3:1 sobre blanco, el umbral de "texto grande". */
+  --tint-ink-subahnale: color-mix(in srgb, var(--color-lg) 40%, var(--color-text) 60%);
+  --tint-ink-ragigenep: color-mix(in srgb, var(--color-brand) 80%, var(--color-text) 20%);
+  --tint-ink-taman: color-mix(in srgb, var(--color-brand) 50%, var(--color-text) 50%);
+  --tint-ink-bintangempat: color-mix(in srgb, var(--color-lg) 50%, var(--color-text) 50%);
+  --tint-ink-wayang: var(--color-text);
+}
+
+/* .Album-grid — contenedor único de toda la composición (ver el bloque
+   GRID, más abajo, para el desglose completo de las 3 filas y el porqué
+   de las 6 columnas). Mobile-first: columna única apilada. Por debajo de
+   900px, el orden visual pasa a ser Imagen → Texto (order, ver el
+   @media (max-width: 899px) más abajo) y el conjunto lleva margen
+   lateral propio: esta portada no va a sangre en móvil, a diferencia del
+   resto de fotografías de la sección (ver el comentario de ESTAMPAS).
+   Los 5 momentos siguen su orden natural del HTML sin cambios. Solo a
+   partir de 900px pasa a grid de 6 columnas (ver el @media
+   (min-width: 900px) más abajo). */
+.Album-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.Album-bandText {
+  padding: clamp(2.25rem, 7vw, 4.5rem) clamp(1.25rem, 6vw, 4.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Album-bandMedia {
+  display: block;
+  width: 100%;
+}
+
+/* Cover en móvil/tablet (< 900px, el rango en el que .Album-grid sigue
+   siendo la columna apilada de arriba, antes del grid de 900px+):
+   1) Orden Imagen → Texto vía `order` (no reordenando el DOM): en el
+      grid de escritorio (900px+) el orden visual ya es correcto por
+      posición de columna, no por orden de documento, así que el cambio
+      queda aislado a este tramo. .Album-bandFeature necesita su propio
+      order:3 explícito (no solo los dos primeros hijos): con un valor
+      por defecto (0) quedaría por delante de order:1/2 y el motor de
+      flexbox colocaría los cinco momentos antes de la portada. Con los
+      cinco en el mismo order:3, se ordenan entre sí por posición en el
+      DOM, conservando su secuencia natural momento01→05.
+   2) Márgenes laterales: el resto de fotos de la sección va a sangre a
+      propósito (ver el comentario grande de ESTAMPAS), pero la portada
+      respira con margen en móvil. padding-inline vive en el propio
+      .Album-grid, no en cada hijo por separado, para que imagen y texto
+      queden exactamente alineados entre sí.
+   3) gap entre imagen y texto, además del padding interno de
+      .Album-bandText, para que el conjunto respire más. */
+@media (max-width: 899px) {
+  .Album-grid {
+    gap: clamp(1.25rem, 4vw, 1.75rem);
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .Album-bandText {
+    order: 2;
+    padding-inline: 0;
+  }
+
+  .Album-bandMedia--paddleboard {
+    order: 1;
+    border-radius: 0.4rem;
+    overflow: hidden;
+  }
+
+  .Album-bandFeature {
+    order: 3;
+    /* Se suma al gap de .Album-grid: marca el salto de un momento al
+       siguiente con más aire que el que separa la imagen de su propio
+       texto dentro del mismo momento (ver gap interno de
+       .Album-bandFeature, más abajo), sin llegar a abrir un hueco en
+       blanco desproporcionado. */
+    margin-top: clamp(2rem, 8vw, 3.25rem);
+  }
+}
+
+/* Cada momento (Subahnale incluido) agrupa su fotografía de acento y su
+   texto en un mismo bloque. Su propio padding y su propio gap, en vez de
+   reutilizar Album-bandText (que ya trae padding pensado para ocupar
+   toda la columna sola) — aquí conviven dos elementos distintos, uno
+   encima del otro. */
+/* Las tres fotos de la fila 2 miden exactamente lo mismo (aspect-ratio
+   3/2 fijo, ver regla de más abajo); flex-start (en vez de center) fija
+   las tres al mismo borde superior siempre, sea cual sea la longitud del
+   texto que tengan debajo — con justify-content:center un texto más
+   corto (p. ej. Taman frente a Ragi Genep) reparte más hueco arriba y
+   desplaza la foto hacia abajo, leyéndose como una foto de otro tamaño. */
+.Album-bandFeature {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(2.25rem, 7vw, 3rem) clamp(1.25rem, 6vw, 3rem);
+}
+
+/* Fotografía de acento: mismo lenguaje que el panel de Scene
+   (Scene-detail/-detailImg) — pequeña, con su propia proporción fija,
+   nunca una franja. aspect-ratio + object-fit sustituyen aquí al
+   height:100% genérico de Album-img (ver el @media 900px+ más abajo).
+   4:3 es solo el valor por defecto: fila 2 (momento01-03) y fila 3
+   (momento04-05) lo sobrescriben cada una con su propia proporción
+   compartida, ver las dos reglas siguientes — ningún momento se queda
+   en este 4:3 base hoy mismo, pero se conserva como fallback razonable
+   si algún momento futuro no necesita una excepción. */
+.Album-bandMedia--accent .Album-img {
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Los cinco momentos comparten la misma proporción de fotografía (3:2):
+   con proporciones distintas por foto, dos elementos en la misma fila de
+   grid con alto automático se estiran a la misma altura de caja
+   (align-items:stretch, valor por defecto de Grid), pero la fotografía y
+   el texto de cada uno quedan a alturas visualmente distintas dentro de
+   esa caja — una composición desequilibrada. 3:2 es el punto medio que
+   menos recorta las fuentes horizontales típicas de esta retícula. */
+.Album-bandFeature--momento01 .Album-bandMedia--accent .Album-img,
+.Album-bandFeature--momento02 .Album-bandMedia--accent .Album-img,
+.Album-bandFeature--momento03 .Album-bandMedia--accent .Album-img,
+.Album-bandFeature--momento04 .Album-bandMedia--accent .Album-img,
+.Album-bandFeature--momento05 .Album-bandMedia--accent .Album-img {
+  aspect-ratio: 3 / 2;
+}
+
+/* Sin forzar height:100% en mobile: el atributo width/height del propio
+   <img> (ver experiences.html) ya le da su aspect-ratio real al
+   navegador, así que cada fotografía se muestra completa, en su
+   proporción natural — vertical, cuadrada o panorámica, sin recortar a
+   una tira para encajar en una celda ajena. Solo a partir de 900px (ver
+   el @media más abajo), cuando dos columnas deben compartir una misma
+   altura de fila, el object-fit:cover entra en juego. */
+/* Cero movimiento en las fotografías de Estampas más allá del wipe de
+   entrada — ni hover, ni parallax de scroll (ver también experiences.js). */
+.Album-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Ancla tipográfica de la fila 1: sin fotografía detrás —vive sobre
+   blanco, en su propia columna, junto a paddleboard—, alineada a la
+   izquierda como el resto de bloques de texto de la sección. */
+.Album-title {
+  margin-top: 0.6rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  line-height: 1.08;
+  color: var(--color-text);
+}
+
+.Album-lead {
+  margin-top: 1.1rem;
+  max-width: 26rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-text) 85%, transparent);
+}
+
+/* Línea bajo el titular: el único lugar de toda la sección donde
+   aparecen los cinco tonos del día juntos, a modo de degradado — el
+   titular en sí se queda en tinta sólida (ver .Album-title). Visible al
+   100% por defecto (nunca depende del JS para existir); [data-reveal-draw]
+   la fija primero a scaleX(0) y la anima a scaleX(1) una sola vez al
+   entrar en pantalla — scale, no width, para no disparar reflow. */
+.Album-titleRule {
+  display: block;
+  margin-top: clamp(1.25rem, 3.5vw, 1.75rem);
+  width: 6rem;
+  height: 2px;
+  transform-origin: left;
+  background-image: linear-gradient(
+    90deg,
+    var(--tint-ink-subahnale),
+    var(--tint-ink-ragigenep),
+    var(--tint-ink-taman),
+    var(--tint-ink-bintangempat),
+    var(--tint-ink-wayang)
+  );
+}
+
+/* Cada momento, un único acento de color: el número de índice y su línea
+   (Moment-rule) en el mismo tono de tinta (--tint-ink-*, definido una
+   vez en .Album). Nunca un fondo, nunca una tarjeta — ver el bloque
+   MOMENT más arriba para Moment-index/-time/-name/-meaning/-copy.
+   Solo el tinte: la posición de cada momento dentro de la retícula la
+   fija el propio Album-bandFeature--momentoNN (grid-column: span, ver
+   el bloque GRID más abajo) — dos selectores distintos porque el tinte
+   depende del momento y la posición depende de la fila, no son el mismo
+   dato. */
+.Album-bandText--subahnale {
+  --moment-tint: var(--tint-ink-subahnale);
+}
+
+.Album-bandText--ragigenep {
+  --moment-tint: var(--tint-ink-ragigenep);
+}
+
+.Album-bandText--taman {
+  --moment-tint: var(--tint-ink-taman);
+}
+
+.Album-bandText--bintangempat {
+  --moment-tint: var(--tint-ink-bintangempat);
+}
+
+.Album-bandText--wayang {
+  --moment-tint: var(--tint-ink-wayang);
+}
+
+/* GRID — a partir de 900px, .Album-grid pasa de columna apilada a una
+   sola retícula CSS Grid de 6 columnas iguales para toda la composición
+   (ver el comentario grande de ESTAMPAS, más arriba, para el porqué: un
+   único contenedor con seis pistas garantiza que las tres filas midan
+   exactamente lo mismo, sin el riesgo de redondeo de dos sistemas de
+   medida distintos conviviendo en filas consecutivas).
+   Ningún bloque necesita grid-row ni grid-template-areas: cada uno
+   declara solo su grid-column: span 2, span 3 o span 4, y el
+   auto-placement por defecto de Grid (grid-auto-flow: row) hace el
+   resto — coloca cada bloque justo detrás del anterior y salta de fila
+   en cuanto el siguiente span ya no cabe en la fila actual. Con los
+   spans de abajo, en el mismo orden del HTML, las filas se forman
+   solas:
+     Fila 1: Titular (span 2) + paddleboard (span 4) = 6 — reparto 33/67
+       para que la fotografía gane protagonismo claro sobre el texto.
+     Fila 2: Subahnale + Ragi Genep + Taman (span 2 cada uno) = 6.
+     Fila 3: Bintang Empat + Wayang (span 3 cada uno) = 6.
+   object-fit:cover entra aquí (no antes): con varios bloques compartiendo
+   la misma altura de fila (align-items: stretch, el valor por defecto en
+   Grid), la fotografía debe recortarse a esa altura común en vez de
+   imponer la suya. */
+@media (min-width: 900px) {
+  /* Un único padding + gap en el propio .Album-grid resuelve dos
+     necesidades a la vez: padding fino en las cuatro esquinas de toda la
+     retícula dibuja un marco blanco (el fondo de .Album ya es blanco)
+     alrededor de la portada y de los 5 momentos; gap separa texto/imagen
+     en la fila 1 y da a las fotos de las filas 2 y 3 el mismo respiro
+     entre sí, con un único mecanismo en vez de reglas ad hoc por fila. */
+  .Album-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: clamp(0.75rem, 1.2vw, 1.25rem);
+    padding: clamp(1rem, 1.5vw, 1.5rem);
+  }
+
+  .Album-img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Fila 1: la única con una altura fija — las filas 2 y 3 usan alto
+     automático, ver más abajo. height, no min-height: un elemento de
+     grid con solo min-height calcula su propio alto de contenido ANTES
+     de que el grid lo estire a la altura de fila, y para eso usa el alto
+     intrínseco de cada hijo — el de una fotografía vertical (paddleboard)
+     con height:100% sin un alto de referencia todavía resuelto es su
+     alto natural a ese ancho. height sí fuerza un valor definido desde
+     el principio, contra el que Album-img (height:100%, object-fit:cover)
+     recorta de verdad — mismo razonamiento que ya se aplicaba aquí con
+     flexbox, ahora en Grid.
+     94vh (no 100vh): con el padding del propio .Album-grid restando
+     espacio arriba y abajo, 100vh dejaría la fila asomando por debajo
+     del primer viewport — 94vh compensa ese padding y el bloque sigue
+     ocupando casi toda la pantalla sin inducir scroll de sobra.
+     margin-bottom: el gap del grid es el mismo entre todas las filas,
+     así que para dar más aire solo entre la fila 1 y la fila 2 hace
+     falta un margen propio en los dos elementos de la fila 1 — al tener
+     height fijo, ese margin-bottom se suma al alto de su propia fila
+     (grid con auto-filas usa el alto exterior del hijo más alto) y
+     empuja la fila 2 hacia abajo sin tocar el gap que separa el resto de
+     filas entre sí. */
+  .Album-bandText,
+  .Album-bandMedia--paddleboard {
+    height: calc(94vh - 9rem);
+    height: calc(94svh - 9rem);
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .Album-bandText {
+    grid-column: span 2;
+  }
+
+  /* Fila 1: ya no hace falta el hack de width:auto + margin-right — el
+     gap real del grid (ver .Album-grid más arriba) separa texto e
+     imagen igual que separa ahora las fotos de las filas 2 y 3, con un
+     único valor en un único sitio en vez de una regla ad hoc aquí. */
+  .Album-bandMedia--paddleboard {
+    grid-column: span 4;
+  }
+
+  /* Fila 2. */
+  .Album-bandFeature--momento01,
+  .Album-bandFeature--momento02,
+  .Album-bandFeature--momento03 {
+    grid-column: span 2;
+  }
+
+  /* Fila 3. */
+  .Album-bandFeature--momento04,
+  .Album-bandFeature--momento05 {
+    grid-column: span 3;
+  }
+}
+
+/* ==========================================================
+   GUÍA CASA BRAVA — Digital Concierge, la única sección que sale de la
+   propiedad. Cuatro capítulos (Costa & Territorio, Surf & Snorkel, Mesa &
+   Café, Bienestar), cada uno con su propia tira corta de scroll-snap
+   nativo (sin librería de carrusel ni JS de arrastre) y un nav de anclas
+   arriba en vez de un filtro por JavaScript — mismo resultado de
+   navegación rápida, sin estado adicional que mantener.
+   Ninguna tarjeta de la Guía usa imagen, ni de fondo ni en miniatura:
+   cada una lleva un tinte de color distinto (siempre derivado de los 4
+   colores del Brand Book vía color-mix) para que se distingan entre sí
+   a simple vista sin necesitar una fotografía, para una presentación
+   limpia y editorial.
+========================================================== */
+.Guide {
+  padding: clamp(4rem, 10vh, 6rem) 0;
+  background-color: color-mix(in srgb, var(--color-text) 4%, var(--color-bg) 96%);
+}
+
+/* La cabecera de la Guía no tiene fotografía al lado — es la única pieza
+   de la sección que abre a ancho completo — así que necesita su propio
+   centrado, a diferencia del resto de bloques de texto de la página
+   (alineados a la izquierda, junto a su fotografía): margin-inline:auto
+   centra la caja de 34rem en el viewport, text-align:center centra las
+   líneas de eyebrow/título/párrafo dentro de ella. */
+.Guide-intro {
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  margin-bottom: clamp(2rem, 5vh, 3rem);
+  text-align: center;
+}
+
+.Guide-title {
+  margin-top: 0.5rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Guide-lead {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* Nav de anclas a cada capítulo: misma tira con overflow horizontal que
+   el resto de la sección (los chips no necesitan encajar, así que sin
+   scroll-snap-type), scrollbar-color visible por el mismo motivo que en
+   .Guide-track. Ancla nativa en vez de filtro JS: con scroll-behavior:
+   smooth global (base.css) el salto ya es suave sin JavaScript.
+   Igual que .Guide-intro, esta fila de chips no va junto a ninguna
+   fotografía — es la única pieza de la sección, junto a la cabecera, que
+   abre a ancho completo — así que también necesita su propio centrado.
+   justify-content:center en .Guide-navList centra el grupo de chips
+   cuando caben enteros en el ancho disponible; si en una pantalla muy
+   estrecha no cupieran los cuatro, overflow-x:auto sigue permitiendo
+   deslizar sin que el centrado rompa nada. */
+.Guide-nav {
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  margin-bottom: clamp(2.5rem, 6vh, 3.5rem);
+}
+
+.Guide-navList {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  list-style: none;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-text) 35%, transparent) transparent;
+}
+
+/* flex: 0 0 auto vive en los hijos directos de .Guide-navList (los <li>),
+   no en .Guide-navLink (un nieto, sin efecto sobre el layout flex). Sin
+   flex-shrink:0 aquí, el <li> podría comprimirse por debajo del ancho
+   natural de su texto en pantallas estrechas y partir "Costa &
+   Territorio" o "Surf & Snorkel" en dos líneas, deformando la cápsula
+   (pensada para una sola línea, con border-radius 999px de estadio). */
+.Guide-navList > li {
+  flex: 0 0 auto;
+}
+
+.Guide-navLink {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-text) 8%, transparent);
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  white-space: nowrap;
+  transition: background-color var(--duration-300) ease, color var(--duration-300) ease;
+}
+
+.Guide-navLink:hover,
+.Guide-navLink:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.Guide-navLink:focus-visible {
+  outline: 0.15rem solid var(--color-accent);
+  outline-offset: 0.2rem;
+}
+
+/* Cada capítulo es un bloque propio (título + su tira corta): el mismo
+   componente .Guide-track se repite cuatro veces con 2-6 tarjetas cada
+   vez en vez de una única tira interminable con todas las
+   recomendaciones. */
+.Guide-chapter {
+  margin-bottom: clamp(2.5rem, 6vh, 3.5rem);
+}
+
+.Guide-chapter:last-of-type {
+  margin-bottom: 0;
+}
+
+.Guide-chapterTitle {
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+
+/* La tira con scroll-snap horizontal es un buen gesto editorial en
+   escritorio (ratón o trackpad), pero en tablet/móvil obliga a un swipe
+   lateral dentro de una página que ya se lee en vertical — dos gestos de
+   scroll compitiendo en la misma zona. Mobile-first, la retícula es un
+   grid en columna (una tarjeta por fila, ancho completo, todo el
+   contenido visible con scroll vertical normal); a partir de 700px pasa
+   a dos columnas; la tira horizontal con scroll-snap queda reservada a
+   partir de 900px (ver el @media más abajo), donde sí tiene sentido como
+   gesto de "hojear" con espacio de sobra alrededor. Ningún tamaño de
+   fuente cambia en ningún breakpoint: es solo la disposición la que se
+   adapta. */
+.Guide-track {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0 clamp(1.5rem, 6vw, 5rem) 1.5rem;
+}
+
+.Guide-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--color-text) 5%, var(--color-bg) 95%);
+}
+
+.Guide-cardBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+/* Etiqueta + tiempo aproximado desde la propiedad: mismo tratamiento en
+   las seis tarjetas (con foto o sin ella), así que sustituye al antiguo
+   .Guide-cardEyebrow de texto suelto por algo más "de ficha". */
+.Guide-cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.Guide-cardTag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-text) 12%, transparent);
+  font-family: var(--font-title);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+}
+
+.Guide-cardTime {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+}
+
+.Guide-cardTitle {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Guide-cardText {
+  margin-top: 0.6rem;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-text);
+}
+
+/* Tinte propio por categoría (siempre derivado de los colores oficiales
+   vía color-mix): sustituye a la fotografía que no existe y da a cada
+   tarjeta una identidad reconocible de un vistazo. */
+.Guide-card--surf {
+  background-color: color-mix(in srgb, var(--color-brand) 20%, var(--color-bg) 80%);
+}
+
+.Guide-card--cafe {
+  background-color: color-mix(in srgb, var(--color-lg) 50%, var(--color-bg) 50%);
+}
+
+.Guide-card--market {
+  background-color: color-mix(in srgb, var(--color-text) 9%, var(--color-bg) 91%);
+}
+
+.Guide-card--trip {
+  background-color: color-mix(in srgb, var(--color-brand) 32%, var(--color-bg) 68%);
+}
+
+.Guide-card--nature {
+  background-color: color-mix(in srgb, var(--color-lg) 30%, var(--color-bg) 70%);
+}
+
+/* Enlace discreto: reutilizado en las tarjetas con ficha de opiniones,
+   en las de reserva y en las que enlazan al canal oficial (web propia o
+   Instagram) de un restaurante o café. Texto + flecha, sin fondo de
+   botón, para que no compita visualmente con "Book now" del Header ni se
+   lea como un directorio de enlaces. Los tres estados (:hover,
+   :focus-visible, :active) se resuelven sin tocar `color`, para que
+   funcionen igual sobre cualquier fondo de tarjeta sin arriesgar
+   contraste. */
+.Guide-cardLink {
+  align-self: flex-start;
+  margin-top: 1rem;
+  padding-bottom: 0.15rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+  transition: border-color var(--duration-300) ease;
+}
+
+.Guide-cardLink::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.4rem;
+  transition: transform var(--duration-300) ease;
+}
+
+.Guide-cardLink:hover,
+.Guide-cardLink:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.Guide-cardLink:hover::after,
+.Guide-cardLink:focus-visible::after {
+  transform: translateX(0.25rem);
+}
+
+.Guide-cardLink:focus-visible {
+  outline: 0.15rem solid var(--color-accent);
+  outline-offset: 0.25rem;
+}
+
+/* :active — mismo lenguaje visual que :hover, un paso más marcado, sin
+   introducir un color nuevo (así funciona igual en cualquier contexto,
+   incluido uno con fondo oscuro, sin arriesgar contraste). */
+.Guide-cardLink:active {
+  border-bottom-width: 2px;
+}
+
+.Guide-cardLink:active::after {
+  transform: translateX(0.4rem);
+}
+
+/* Revelado en cascada: mismo mecanismo que Piscinas y Sobremesa
+   (.Guide--animated lo añade js/experiences.js, .Guide--visible se añade
+   la primera vez que la sección cruza el viewport). El retraso creciente
+   por tarjeta (nth-child, relativo a cada tira corta de capítulo) recrea
+   la misma sensación de "abanico" que el mosaico de About, aplicada aquí
+   a cuatro tiras horizontales cortas en vez de una sola larga. */
+.Guide--animated .Guide-intro,
+.Guide--animated .Guide-nav,
+.Guide--animated .Guide-chapterTitle,
+.Guide--animated .Guide-card {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity var(--duration-600) ease, transform var(--duration-600) ease;
+}
+
+.Guide--animated .Guide-card:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.Guide--animated .Guide-card:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+.Guide--animated.Guide--visible .Guide-intro,
+.Guide--animated.Guide--visible .Guide-nav,
+.Guide--animated.Guide--visible .Guide-chapterTitle,
+.Guide--animated.Guide--visible .Guide-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   ÁTOMOS DE RESERVA — .Guide-cardFoot y .Guide-ticketProvider,
+   compartidos por cualquier .Guide-card con enlace de reserva o canal
+   oficial (Surf & Snorkel, Mesa & Café): mismos átomos tipográficos en
+   los dos sitios, cero reglas duplicadas.
+========================================================== */
+
+/* .Guide-cardFoot: línea de puntos + proveedor + CTA, para cualquier
+   .Guide-card que enlace a una reserva de verdad o a un canal oficial en
+   vez de a una simple ficha de opiniones — el texto "Vía X" es lo que
+   evita que se lea como un servicio propio de Casa Brava. */
+.Guide-cardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed color-mix(in srgb, var(--color-text) 28%, transparent);
+}
+
+.Guide-ticketProvider {
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--color-text) 58%, transparent);
+}
+
+/* Tablet: el grid de una columna pasa a dos — cada capítulo ya cabe en
+   pareja sin sentirse apretado, sin tocar ningún tamaño de fuente. */
+@media (min-width: 700px) {
+  .Guide-track {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Escritorio: aquí sí tiene sentido la tira horizontal con scroll-snap
+   (más espacio de sobra alrededor, ratón/trackpad a mano) — se activa
+   entera en este único breakpoint, junto con el ancho de tarjeta fijo.
+   El hueco de entrada/salida se resuelve con scroll-padding-inline +
+   padding-inline en el propio .Guide-track, no con margin en los <li>:
+   con scroll-snap-type + scroll-snap-align:start en la primera tarjeta,
+   el navegador fija el scroll de reposo (scrollLeft inicial) en el valor
+   que alinea el snap-point de esa tarjeta. Un margin-inline-start en el
+   <li> quedaría "dentro" del área de snap y el navegador arrancaría con
+   scrollLeft igual a ese margen para satisfacer el snap, cancelando
+   visualmente el hueco. scroll-padding hace que el navegador calcule el
+   snap-point de la primera tarjeta ya considerando el hueco, dejando el
+   reposo en scrollLeft:0 con la tarjeta a la distancia visual correcta
+   del borde. */
+@media (min-width: 900px) {
+  .Guide-track {
+    display: flex;
+    justify-content: flex-start;
+    grid-template-columns: none;
+    padding-inline: clamp(1.5rem, 6vw, 5rem);
+    scroll-padding-inline: clamp(1.5rem, 6vw, 5rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-text) 35%, transparent) transparent;
+  }
+
+  .Guide-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 19rem;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE — Experiences
+========================================================== */
+@media (max-width: 600px) {
+  /* .Album, no .Intro-gallery: mismo motivo que en la regla base más
+     arriba — el padding lateral/inferior de Intro-gallery rompería el
+     sangrado de las bandas en móvil. Solo se ajusta el padding-top
+     (Header algo más bajo en móvil) y el padding lateral/vertical propio
+     de cada Album-bandText, que ya se encoge solo vía clamp(). */
+  .Album {
+    padding-top: 8rem;
+  }
+
+  .Scene {
+    min-height: 60vh;
+  }
+
+  .Pools-content,
+  .Gather-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .Gather-media {
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .Guide-intro {
+    padding: 0 1.5rem;
+  }
+
+  .Guide-nav {
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .Guide-chapterTitle {
+    padding: 0 1.5rem;
+  }
+
+  .Guide-track {
+    gap: 1rem;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .Guide-cardBody {
+    padding: 1.5rem;
+  }
+}

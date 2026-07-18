@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Villas & Suites de Casa Brava en Kuta Mandalika, Lombok: arquitectura, espacios y servicios de la propiedad antes de reservar.">
+    <meta name="robots" content="index,follow">
+    <title>Villas & Suites | Casa Brava Boutique Hotel</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/ISOTYPE/ISOTYPE.svg">
+
+    <link rel="canonical" href="https://hellobymarta.github.io/casa-brava/html/villas-suites.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Villas & Suites | Casa Brava Boutique Hotel">
+    <meta property="og:description" content="Villas & Suites de Casa Brava en Kuta Mandalika, Lombok: arquitectura, espacios y servicios de la propiedad antes de reservar.">
+    <meta property="og:image" content="https://hellobymarta.github.io/casa-brava/assets/images/shared/carousel/CASABRAVA22.jpg">
+    <meta property="og:url" content="https://hellobymarta.github.io/casa-brava/html/villas-suites.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Fraunces:opsz,wght@9..144,200..600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/villas-suites.css">
+    <!-- GSAP + ScrollTrigger: solo para el revelado editorial (fades) y el
+         parallax sutil de las fotografías grandes (ver villas-suites.js). Si
+         el CDN fallara, la página sigue funcionando con todo el contenido
+         visible desde el primer fotograma. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/villas-suites.js" defer></script>
+</head>
+<body>
+    <!-- SVG Symbol reutilizable -->
+    <svg class="u-hidden" aria-hidden="true">
+        <symbol id="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h2l1-1 1 1h4"/>
+            <path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-3l-1-1-1 1h-3"/>
+            <path d="M5.89 9.71c-2.15 2.15-2.3 5.47-.35 7.43l4.24-4.25.7-.7.71-.71 2.12-2.12c-1.95-1.96-5.27-1.8-7.42.35"/>
+            <path d="M11 15.5c.5 2.5-.17 4.5-1 6.5h4c2-5.5-.5-12-1-14"/>
+        </symbol>
+    </svg>
+
+    <!-- Overlay menú móvil -->
+    <div class="MenuOverlay" aria-hidden="true"></div>
+
+    <header class="Header">
+        <a href="../index.html" class="Header-logoLink" aria-label="Ir al inicio" title="Casa Brava - Inicio">
+            <img src="../assets/icons/LOGO/LOGO-BLACK/LOGO-H1_BLACK.png" alt="Casa Brava Boutique Hotel logo" class="Header-logoImg" width="180" height="60">
+        </a>
+
+        <nav class="Header-nav" id="Main-menu" aria-label="Navegación principal">
+            <ul class="Header-ul">
+                <li class="Header-li"><a href="../index.html" class="Header-a" title="Inicio">Inicio</a></li>
+                <li class="Header-li"><a href="villas-suites.html" class="Header-a" title="Suites y villas" aria-current="page">Suites &amp; Villas</a></li>
+                <li class="Header-li"><a href="experiences.html" class="Header-a" title="Experiencias">Experiencias</a></li>
+                <li class="Header-li"><a href="about.html" class="Header-a" title="Sobre Casa Brava">Nosotros</a></li>
+                <li class="Header-li"><a href="contact.html" class="Header-a" title="Contacto">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <button class="Header-hamburger" aria-label="Abrir menú de navegación" aria-controls="Main-menu" aria-expanded="false" title="Menú">
+            <svg class="Header-icon" width="24" height="24">
+                <use href="#icon-hamburger"></use>
+            </svg>
+        </button>
+
+        <div class="Header-booking">
+            <a href="contact.html" class="Button-book" title="Reservar">Reservar</a>
+        </div>
+    </header>
+
+    <!-- ==========================================================
+         VILLAS & SUITES — recorrido editorial en cinco bloques narrativos:
+         Hero, Filosofía, La experiencia Casa Brava, Servicios Casa Brava,
+         Cierre — cada uno con su propia composición, pensados para leerse
+         como un recorrido por la propiedad antes de reservar, no como un
+         catálogo de habitaciones. Sin tarjetas genéricas ni grids de tres
+         columnas repetidos: cada fotografía ocupa el espacio que le
+         corresponde por su propio contenido (vertical, panorámica, detalle,
+         o portada editorial en el caso de Servicios).
+    ========================================================== -->
+    <main class="Main">
+
+        <!-- HERO — una sola fotografía a pantalla casi completa (el dormitorio
+             con lucernario circular) y un titular corto. Sin carrusel, sin
+             botón. -->
+        <section class="Hero" aria-labelledby="villas-title">
+            <picture class="Hero-media">
+                <source srcset="../assets/images/shared/CASABRAVA22.avif" type="image/avif">
+                <source srcset="../assets/images/shared/CASABRAVA22.webp" type="image/webp">
+                <img src="../assets/images/shared/carousel/CASABRAVA22.jpg" alt="Dormitorio con lucernario circular abierto al cielo, cama baja de piedra y lámparas de fibra trenzada" class="Hero-img" width="1920" height="2560" fetchpriority="high" decoding="async" data-parallax>
+            </picture>
+
+            <div class="Hero-content">
+                <p class="Hero-eyebrow">Casa Brava — Kuta Mandalika</p>
+                <h1 class="Hero-title" id="villas-title">Villas &amp; Suites</h1>
+            </div>
+        </section>
+
+        <!-- FILOSOFÍA — sin fotografía de habitación todavía: se habla del
+             espacio, la privacidad y la naturaleza. Composición asimétrica
+             (texto ancho a la izquierda, una única fotografía vertical de
+             apoyo a la derecha). -->
+        <section class="Ethos" aria-labelledby="ethos-title">
+            <div class="Ethos-text" data-reveal>
+                <p class="Ethos-eyebrow">Filosofía</p>
+                <h2 class="Ethos-heading" id="ethos-title">Detenerse no es dejar de moverse. Es dejar de<br class="Ethos-headingBreak">necesitarlo.</h2>
+                <p class="Ethos-body">Cada villa se construye desde el terreno, no sobre él: los muros heredan su curva y cada abertura se orienta hacia donde cae la luz de la mañana.</p>
+                <p class="Ethos-body">La privacidad no se puede explicar en un folleto. Se siente en un camino que solo cruza quien abre las puertas de Casa Brava.</p>
+            </div>
+
+            <figure class="Ethos-media" data-reveal>
+                <picture>
+                    <source srcset="../assets/images/shared/Filosofia.avif" type="image/avif">
+                    <source srcset="../assets/images/shared/Filosofia.webp" type="image/webp">
+                    <img src="../assets/images/shared/carousel/Filosofia.jpg" alt="Vista aérea de una playa de arena blanca bordeada de palmeras junto a un arrecife, y un grupo practicando yoga al atardecer entre palmeras" class="Ethos-img" width="1600" height="1172" loading="lazy" decoding="async">
+                </picture>
+            </figure>
+        </section>
+
+        <!-- LA EXPERIENCIA CASA BRAVA — una única fotografía ancla con leyenda
+             integrada, seguida de cinco historias breves en prosa —
+             Descanso, Confort, Espacios, Amenities, Conexión — en vez de una
+             lista de iconos o un acordeón. -->
+        <section class="Villa" aria-labelledby="villa-heading">
+            <header class="Villa-intro" data-reveal>
+                <p class="Villa-eyebrow">La experiencia Casa Brava</p>
+                <h2 class="Villa-lead" id="villa-heading">Dentro de tu villa, cada detalle ya está pensado.</h2>
+            </header>
+
+            <figure class="Villa-feature" data-reveal>
+                <picture>
+                    <source srcset="../assets/images/shared/CASABRAVA01.avif" type="image/avif">
+                    <source srcset="../assets/images/shared/CASABRAVA01.webp" type="image/webp">
+                    <img src="../assets/images/shared/carousel/CASABRAVA01.jpg" alt="Dormitorio con muros curvos de barro y una gran abertura orgánica hacia la vegetación" class="Villa-featureImg" width="2560" height="1920" loading="lazy" decoding="async">
+                </picture>
+                <figcaption class="Villa-featureCaption">Una sola ventana, tallada como una cueva, abre el dormitorio a la vegetación.</figcaption>
+            </figure>
+
+            <ol class="Villa-stories" data-reveal>
+                <li class="Villa-story">
+                    <span class="Villa-storyIndex" aria-hidden="true">01</span>
+                    <h3 class="Villa-storyTitle">Descanso</h3>
+                    <p class="Villa-storyText">Ropa de cama de algodón egipcio sobre colchones de firmeza alta, y un albornoz de rizo grueso esperando siempre en su sitio.</p>
+                </li>
+                <li class="Villa-story">
+                    <span class="Villa-storyIndex" aria-hidden="true">02</span>
+                    <h3 class="Villa-storyTitle">Confort</h3>
+                    <p class="Villa-storyText">Aire acondicionado silencioso, wifi de alta velocidad, caja fuerte y un minibar que se repone cada día sin que lo pidas.</p>
+                </li>
+                <li class="Villa-story">
+                    <span class="Villa-storyIndex" aria-hidden="true">03</span>
+                    <h3 class="Villa-storyTitle">Espacios</h3>
+                    <p class="Villa-storyText">Piscina y terraza privadas, y productos de baño formulados con plantas que crecen en la propia propiedad.</p>
+                </li>
+                <li class="Villa-story">
+                    <span class="Villa-storyIndex" aria-hidden="true">04</span>
+                    <h3 class="Villa-storyTitle">Amenities</h3>
+                    <p class="Villa-storyText">Café de Lombok, té e infusiones, agua filtrada siempre fría, y limpieza todos los días de la villa.</p>
+                </li>
+                <li class="Villa-story">
+                    <span class="Villa-storyIndex" aria-hidden="true">05</span>
+                    <h3 class="Villa-storyTitle">Conexión</h3>
+                    <p class="Villa-storyText">Masaje en la villa, cena privada o traslados: basta con pedirlo, bajo reserva y con coste adicional.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- SERVICIOS CASA BRAVA — las cuatro categorías (Desayunos, Bebidas,
+             Rituales, Masajes) son portadas fotográficas de ancho completo,
+             cada una con su propia fotografía y su propio tono de acento
+             (derivado de los tokens de marca vía color-mix, nunca un hex
+             suelto — ver --category-accent en villas-suites.css). Cada
+             portada es un botón: al pulsarla, la fotografía se escala
+             levemente, se revela una capa translúcida con el tono de la
+             categoría y se despliega la lista de experiencias. Dentro de
+             cada categoría, cada experiencia es su propio acordeón
+             individual. Un mismo manejador delegado —
+             accordionTriggerHandler, en villas-suites.js — sirve para ambos
+             niveles. -->
+        <section class="ServicesMenu" aria-labelledby="servicesmenu-heading">
+            <header class="ServicesMenu-intro" data-reveal>
+                <p class="ServicesMenu-eyebrow">Servicios</p>
+                <h2 class="ServicesMenu-lead" id="servicesmenu-heading">Son extras pero formnan parte de quedarse en Casa Brava.</h2>
+            </header>
+
+            <div class="ServicesMenu-grid">
+                <!-- DESAYUNOS -->
+                <article class="ServicesMenu-category ServicesMenu-category--breakfast" data-reveal>
+                    <h3 class="ServicesMenu-categoryHeading">
+                        <button type="button" class="ServicesMenu-categoryCover" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-panel-breakfast" id="servicesmenu-toggle-breakfast">
+                            <picture class="ServicesMenu-categoryPicture">
+                                <source srcset="../assets/images/shared/Desayunos.avif" type="image/avif">
+                                <source srcset="../assets/images/shared/Desayunos.webp" type="image/webp">
+                                <img src="../assets/images/shared/carousel/Desayunos.jpg" alt="Rama de eucalipto seco sobre un lienzo de lino blanco, con luz suave de mañana entrando en diagonal" class="ServicesMenu-categoryImg" width="2560" height="1707" loading="lazy" decoding="async">
+                            </picture>
+                            <span class="ServicesMenu-categoryOverlay" aria-hidden="true"></span>
+                            <span class="ServicesMenu-categoryContent">
+                                <span class="ServicesMenu-categoryName">Desayunos</span>
+                                <span class="ServicesMenu-categoryTagline">Luz de amanecer, lino blanco y fruta recién cortada.</span>
+                                <span class="ServicesMenu-categoryCue">
+                                    <span class="ServicesMenu-categoryCueClosed">Ver experiencias</span>
+                                    <span class="ServicesMenu-categoryCueOpen">Cerrar</span>
+                                    <span class="ServicesMenu-categoryCueIcon" aria-hidden="true"></span>
+                                </span>
+                            </span>
+                        </button>
+                    </h3>
+
+                    <div class="ServicesMenu-categoryPanel" id="servicesmenu-panel-breakfast" aria-labelledby="servicesmenu-toggle-breakfast">
+                        <div class="ServicesMenu-categoryPanelInner">
+                            <ul class="ServicesMenu-list">
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-floating-breakfast" id="servicesmenu-item-toggle-floating-breakfast">
+                                        <span class="ServicesMenu-itemName">Floating Breakfast</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-floating-breakfast" aria-labelledby="servicesmenu-item-toggle-floating-breakfast">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                7:00 – 10:00 · Bajo reserva
+                                                <span class="ServicesMenu-itemPrice">25 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Una bandeja flotante servida en la piscina privada, con fruta tropical fresca, café de especialidad de Lombok, zumo natural, bollería artesanal y una selección de desayunos dulces o salados.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Fruta de temporada</li>
+                                                <li>Café o té de Lombok</li>
+                                                <li>Zumo natural</li>
+                                                <li>Bollería artesanal</li>
+                                                <li>Plato principal a elegir</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-breakfast-in-villa" id="servicesmenu-item-toggle-breakfast-in-villa">
+                                        <span class="ServicesMenu-itemName">Breakfast in Villa</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-breakfast-in-villa" aria-labelledby="servicesmenu-item-toggle-breakfast-in-villa">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                7:00 – 10:00
+                                                <span class="ServicesMenu-itemPrice">18 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Servido en la terraza privada, con café de Lombok, fruta tropical y pan recién horneado — y, para quien lo pida, nasi goreng o bubur ayam.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-healthy-morning" id="servicesmenu-item-toggle-healthy-morning">
+                                        <span class="ServicesMenu-itemName">Healthy Morning</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-healthy-morning" aria-labelledby="servicesmenu-item-toggle-healthy-morning">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                7:00 – 10:00
+                                                <span class="ServicesMenu-itemPrice">15 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Bowl de fruta de temporada, yogur natural, granola casera y miel de la isla, para quien prefiere empezar el día ligero.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-indonesian-breakfast" id="servicesmenu-item-toggle-indonesian-breakfast">
+                                        <span class="ServicesMenu-itemName">Indonesian Breakfast</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-indonesian-breakfast" aria-labelledby="servicesmenu-item-toggle-indonesian-breakfast">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                7:00 – 10:00
+                                                <span class="ServicesMenu-itemPrice">16 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Nasi goreng, bubur ayam o pisang goreng, servidos con sambal y té de jengibre — el desayuno tal y como se toma en Lombok.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- BEBIDAS -->
+                <article class="ServicesMenu-category ServicesMenu-category--drinks" data-reveal>
+                    <h3 class="ServicesMenu-categoryHeading">
+                        <button type="button" class="ServicesMenu-categoryCover" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-panel-drinks" id="servicesmenu-toggle-drinks">
+                            <picture class="ServicesMenu-categoryPicture">
+                                <source srcset="../assets/images/shared/Bebidas.avif" type="image/avif">
+                                <source srcset="../assets/images/shared/Bebidas.webp" type="image/webp">
+                                <img src="../assets/images/shared/carousel/Bebidas.jpg" alt="Superficie de agua azul oscuro con suaves ondas, en primer plano y desenfocada" class="ServicesMenu-categoryImg" width="2560" height="1707" loading="lazy" decoding="async">
+                            </picture>
+                            <span class="ServicesMenu-categoryOverlay" aria-hidden="true"></span>
+                            <span class="ServicesMenu-categoryContent">
+                                <span class="ServicesMenu-categoryName">Bebidas</span>
+                                <span class="ServicesMenu-categoryTagline">Agua, hielo y reflejos: la piscina como barra.</span>
+                                <span class="ServicesMenu-categoryCue">
+                                    <span class="ServicesMenu-categoryCueClosed">Ver experiencias</span>
+                                    <span class="ServicesMenu-categoryCueOpen">Cerrar</span>
+                                    <span class="ServicesMenu-categoryCueIcon" aria-hidden="true"></span>
+                                </span>
+                            </span>
+                        </button>
+                    </h3>
+
+                    <div class="ServicesMenu-categoryPanel" id="servicesmenu-panel-drinks" aria-labelledby="servicesmenu-toggle-drinks">
+                        <div class="ServicesMenu-categoryPanelInner">
+                            <ul class="ServicesMenu-list">
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-signature-cocktail" id="servicesmenu-item-toggle-signature-cocktail">
+                                        <span class="ServicesMenu-itemName">Signature Cocktail</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-signature-cocktail" aria-labelledby="servicesmenu-item-toggle-signature-cocktail">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                Ron añejo, maracuyá, lima, jengibre
+                                                <span class="ServicesMenu-itemPrice">12 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Mezcla inspirada en las frutas tropicales de Lombok, cítricos y destilados premium.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-mocktail-tropical" id="servicesmenu-item-toggle-mocktail-tropical">
+                                        <span class="ServicesMenu-itemName">Mocktail Tropical</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-mocktail-tropical" aria-labelledby="servicesmenu-item-toggle-mocktail-tropical">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                Piña, coco, lima, albahaca fresca
+                                                <span class="ServicesMenu-itemPrice">8 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Sin alcohol, sin renunciar al sabor: fruta de la propiedad y un toque herbal al final.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-cafe-especialidad" id="servicesmenu-item-toggle-cafe-especialidad">
+                                        <span class="ServicesMenu-itemName">Café de Especialidad</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-cafe-especialidad" aria-labelledby="servicesmenu-item-toggle-cafe-especialidad">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                Grano de Lombok, tueste local
+                                                <span class="ServicesMenu-itemPrice">5 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Preparado en V60 o prensa francesa, a la vista, taza a taza.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-zumo-natural" id="servicesmenu-item-toggle-zumo-natural">
+                                        <span class="ServicesMenu-itemName">Zumo Natural</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-zumo-natural" aria-labelledby="servicesmenu-item-toggle-zumo-natural">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                Piña, sandía, maracuyá o mango
+                                                <span class="ServicesMenu-itemPrice">6 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Fruta de temporada, exprimida al momento, sin azúcar añadido.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-seleccion-vinos" id="servicesmenu-item-toggle-seleccion-vinos">
+                                        <span class="ServicesMenu-itemName">Selección de Vinos</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-seleccion-vinos" aria-labelledby="servicesmenu-item-toggle-seleccion-vinos">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                Copa
+                                                <span class="ServicesMenu-itemPrice">desde 9 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Blancos y tintos escogidos para acompañar la cocina local.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- RITUALES -->
+                <article class="ServicesMenu-category ServicesMenu-category--rituals" data-reveal>
+                    <h3 class="ServicesMenu-categoryHeading">
+                        <button type="button" class="ServicesMenu-categoryCover" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-panel-rituals" id="servicesmenu-toggle-rituals">
+                            <picture class="ServicesMenu-categoryPicture">
+                                <source srcset="../assets/images/shared/Rituales.avif" type="image/avif">
+                                <source srcset="../assets/images/shared/Rituales.webp" type="image/webp">
+                                <img src="../assets/images/shared/carousel/Rituales.jpg" alt="Piedras volcánicas apiladas en un cestillo metálico junto a una estufa de sauna, con un brazo desenfocado al fondo" class="ServicesMenu-categoryImg" width="1707" height="2560" loading="lazy" decoding="async">
+                            </picture>
+                            <span class="ServicesMenu-categoryOverlay" aria-hidden="true"></span>
+                            <span class="ServicesMenu-categoryContent">
+                                <span class="ServicesMenu-categoryName">Rituales</span>
+                                <span class="ServicesMenu-categoryTagline">Incienso, piedra y la respiración como ritmo del día.</span>
+                                <span class="ServicesMenu-categoryCue">
+                                    <span class="ServicesMenu-categoryCueClosed">Ver experiencias</span>
+                                    <span class="ServicesMenu-categoryCueOpen">Cerrar</span>
+                                    <span class="ServicesMenu-categoryCueIcon" aria-hidden="true"></span>
+                                </span>
+                            </span>
+                        </button>
+                    </h3>
+
+                    <div class="ServicesMenu-categoryPanel" id="servicesmenu-panel-rituals" aria-labelledby="servicesmenu-toggle-rituals">
+                        <div class="ServicesMenu-categoryPanelInner">
+                            <ul class="ServicesMenu-list">
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-sunrise-meditation" id="servicesmenu-item-toggle-sunrise-meditation">
+                                        <span class="ServicesMenu-itemName">Sunrise Meditation</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-sunrise-meditation" aria-labelledby="servicesmenu-item-toggle-sunrise-meditation">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">06:30 · 30 min · Todos los niveles · Bajo reserva</p>
+                                            <p class="ServicesMenu-itemBody">Comienza el día con una meditación guiada frente a la naturaleza, acompañada de una infusión local elaborada con ingredientes tradicionales de Lombok.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-daily-yoga-flow" id="servicesmenu-item-toggle-daily-yoga-flow">
+                                        <span class="ServicesMenu-itemName">Daily Yoga Flow</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-daily-yoga-flow" aria-labelledby="servicesmenu-item-toggle-daily-yoga-flow">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">08:00 · 45 min · Todos los niveles</p>
+                                            <p class="ServicesMenu-itemBody">Secuencia suave de movilidad y respiración para empezar el día con el cuerpo despierto.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-breathwork" id="servicesmenu-item-toggle-breathwork">
+                                        <span class="ServicesMenu-itemName">Breathwork</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-breathwork" aria-labelledby="servicesmenu-item-toggle-breathwork">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">Algunos días · 17:00 · 30 min · Todos los niveles</p>
+                                            <p class="ServicesMenu-itemBody">Técnicas de respiración consciente, práctica internacional de bienestar, para liberar tensión sin moverse del sitio.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-sound-healing" id="servicesmenu-item-toggle-sound-healing">
+                                        <span class="ServicesMenu-itemName">Sound Healing</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-sound-healing" aria-labelledby="servicesmenu-item-toggle-sound-healing">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">Algunas tardes · 45 min · Todos los niveles · Bajo reserva</p>
+                                            <p class="ServicesMenu-itemBody">Baño de sonido con cuencos tibetanos, una práctica cada vez más presente en los spas de Bali, ahora también aquí.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-womens-circle" id="servicesmenu-item-toggle-womens-circle">
+                                        <span class="ServicesMenu-itemName">Women's Circle</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-womens-circle" aria-labelledby="servicesmenu-item-toggle-womens-circle">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">Algunas tardes · 60 min · Grupo reducido · Bajo reserva</p>
+                                            <p class="ServicesMenu-itemBody">Encuentro para compartir, meditar y conectar, inspirado en los círculos de mujeres balineses.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-sunset-stretch" id="servicesmenu-item-toggle-sunset-stretch">
+                                        <span class="ServicesMenu-itemName">Sunset Stretch</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-sunset-stretch" aria-labelledby="servicesmenu-item-toggle-sunset-stretch">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">17:30 · 30 min · Todos los niveles</p>
+                                            <p class="ServicesMenu-itemBody">Estiramientos suaves para cerrar el día, con vistas al atardecer sobre la propiedad.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-yoga-nidra" id="servicesmenu-item-toggle-yoga-nidra">
+                                        <span class="ServicesMenu-itemName">Yoga Nidra</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-yoga-nidra" aria-labelledby="servicesmenu-item-toggle-yoga-nidra">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">21:00 · 40 min · Todos los niveles</p>
+                                            <p class="ServicesMenu-itemBody">Relajación guiada tumbada, pensada para dormir profundamente después.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MASAJES -->
+                <article class="ServicesMenu-category ServicesMenu-category--massages" data-reveal>
+                    <h3 class="ServicesMenu-categoryHeading">
+                        <button type="button" class="ServicesMenu-categoryCover" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-panel-massages" id="servicesmenu-toggle-massages">
+                            <picture class="ServicesMenu-categoryPicture">
+                                <source srcset="../assets/images/shared/Masajes.avif" type="image/avif">
+                                <source srcset="../assets/images/shared/Masajes.webp" type="image/webp">
+                                <img src="../assets/images/shared/carousel/Masajes.jpg" alt="Frasco de aceite de masaje sobre un paño de lino, junto a ramas de lavanda seca" class="ServicesMenu-categoryImg" width="1707" height="2560" loading="lazy" decoding="async">
+                            </picture>
+                            <span class="ServicesMenu-categoryOverlay" aria-hidden="true"></span>
+                            <span class="ServicesMenu-categoryContent">
+                                <span class="ServicesMenu-categoryName">Masajes</span>
+                                <span class="ServicesMenu-categoryTagline">Aceites, madera y vapor: las manos que deshacen el día.</span>
+                                <span class="ServicesMenu-categoryCue">
+                                    <span class="ServicesMenu-categoryCueClosed">Ver experiencias</span>
+                                    <span class="ServicesMenu-categoryCueOpen">Cerrar</span>
+                                    <span class="ServicesMenu-categoryCueIcon" aria-hidden="true"></span>
+                                </span>
+                            </span>
+                        </button>
+                    </h3>
+
+                    <div class="ServicesMenu-categoryPanel" id="servicesmenu-panel-massages" aria-labelledby="servicesmenu-toggle-massages">
+                        <div class="ServicesMenu-categoryPanelInner">
+                            <ul class="ServicesMenu-list">
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-balinese-massage" id="servicesmenu-item-toggle-balinese-massage">
+                                        <span class="ServicesMenu-itemName">Balinese Massage</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-balinese-massage" aria-labelledby="servicesmenu-item-toggle-balinese-massage">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                60 min
+                                                <span class="ServicesMenu-itemPrice">65 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Masaje tradicional inspirado en técnicas balinesas que combina presiones profundas y movimientos suaves para liberar tensiones y mejorar la circulación.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Infusión local de bienvenida</li>
+                                                <li>Aceite aromático natural</li>
+                                                <li>Momento de relajación posterior</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-deep-tissue" id="servicesmenu-item-toggle-deep-tissue">
+                                        <span class="ServicesMenu-itemName">Deep Tissue</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-deep-tissue" aria-labelledby="servicesmenu-item-toggle-deep-tissue">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                60 min
+                                                <span class="ServicesMenu-itemPrice">70 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Trabajo profundo sobre la musculatura para liberar tensión acumulada.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Aceite de masaje</li>
+                                                <li>Toalla caliente</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-relax-massage" id="servicesmenu-item-toggle-relax-massage">
+                                        <span class="ServicesMenu-itemName">Relax Massage</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-relax-massage" aria-labelledby="servicesmenu-item-toggle-relax-massage">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                50 min
+                                                <span class="ServicesMenu-itemPrice">60 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Masaje suave de cuerpo completo, pensado para desconectar sin más pretensión.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Aceite aromático</li>
+                                                <li>Infusión de bienvenida</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-reflexology" id="servicesmenu-item-toggle-reflexology">
+                                        <span class="ServicesMenu-itemName">Reflexology</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-reflexology" aria-labelledby="servicesmenu-item-toggle-reflexology">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                40 min
+                                                <span class="ServicesMenu-itemPrice">45 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Presión en puntos específicos de los pies para liberar tensión en todo el cuerpo.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Baño de pies con sales minerales</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="ServicesMenu-item">
+                                    <button type="button" class="ServicesMenu-itemTrigger" data-accordion-trigger aria-expanded="false" aria-controls="servicesmenu-item-panel-aromatherapy-massage" id="servicesmenu-item-toggle-aromatherapy-massage">
+                                        <span class="ServicesMenu-itemName">Aromatherapy Massage</span>
+                                        <span class="ServicesMenu-itemIcon" aria-hidden="true"></span>
+                                    </button>
+                                    <div class="ServicesMenu-itemPanel" id="servicesmenu-item-panel-aromatherapy-massage" aria-labelledby="servicesmenu-item-toggle-aromatherapy-massage">
+                                        <div class="ServicesMenu-itemPanelInner">
+                                            <p class="ServicesMenu-itemMeta">
+                                                60 min
+                                                <span class="ServicesMenu-itemPrice">68 €</span>
+                                            </p>
+                                            <p class="ServicesMenu-itemBody">Masaje con aceites esenciales seleccionados según el estado de ánimo de cada huésped.</p>
+                                            <ul class="ServicesMenu-itemIncludes">
+                                                <li>Elección de aroma</li>
+                                                <li>Infusión posterior</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CIERRE — una única fotografía grande (el salón, no fotografiado en
+             ningún otro bloque) y un CTA discreto hacia el correo de
+             reservas. -->
+        <section class="Closing" aria-labelledby="closing-heading">
+            <picture class="Closing-media">
+                <source srcset="../assets/images/shared/CASABRAVA18.avif" type="image/avif">
+                <source srcset="../assets/images/shared/CASABRAVA18.webp" type="image/webp">
+                <img src="../assets/images/shared/carousel/CASABRAVA18.jpg" alt="Salón con sofá bajo, mesa de madera de borde vivo y luz cálida sobre los muros de barro" class="Closing-img" width="2560" height="1920" loading="lazy" decoding="async" data-parallax>
+            </picture>
+
+            <div class="Closing-content" data-reveal>
+                <h2 class="Closing-heading" id="closing-heading">Al final, una casa. No una habitación.</h2>
+                <a href="mailto:casabravareservations@gmail.com?subject=Consulta%20de%20disponibilidad%20-%20Villas%20%26%20Suites" class="Closing-cta" title="Escribir para consultar disponibilidad">Consultar disponibilidad</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sin Footer compartido en esta página: el Cierre (arriba) ya funciona
+         como remate — una fotografía grande, un titular y un CTA de correo. -->
+</body>
+</html>

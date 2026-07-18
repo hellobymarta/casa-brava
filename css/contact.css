@@ -1,0 +1,322 @@
+/* ==========================================================
+   CONTACT — Estilos específicos de html/contact.html
+   Tokens, reset, Header y menú móvil viven en base.css.
+   Esta página NO usa el componente .Footer compartido: el cierre de la
+   experiencia se resuelve dentro de su propia composición en dos columnas
+   (formulario protagonista + columna editorial de contacto directo).
+========================================================== */
+
+.Contact {
+  height: 100vh;
+  /* Fallback dinámico: mismo patrón que .AboutHero (about.css). */
+  height: 100svh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+/* ==========================================================
+   COLUMNA FORMULARIO — elemento protagonista de la página
+   Espaciados en clamp() ligados a vh: toda la composición se comprime en
+   proporción a la altura real del viewport para caber en una sola pantalla
+   en escritorio, sin recortar contenido en ningún caso. */
+.Contact-formCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  padding: clamp(6.5rem, 11vh, 8rem) 3rem clamp(2rem, 5vh, 3rem);
+
+  /* Este verde salvia se deriva de --color-brand aclarado hacia --color-bg —
+     mismo resultado visual, cero color nuevo fuera de :root. */
+  background-color: color-mix(in srgb, var(--color-brand) 55%, var(--color-bg) 45%);
+
+  /* Horizontal: contiene el sangrado del título sin scroll lateral.
+     Vertical: red de seguridad interna a esta columna (nunca a la página)
+     por si un viewport muy bajo necesitara un pequeño scroll local. */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.Contact-title {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  
+  color: var(--color-brand);
+
+  margin-left: -0.05em;
+  margin-bottom: clamp(0.75rem, 2.5vh, 1.5rem);
+}
+
+/* El resto del contenido mantiene un ancho de lectura cómodo, alineado al
+   mismo margen izquierdo que el título */
+.Contact-formBody {
+  max-width: 26rem;
+}
+
+/* Escala tipográfica de esta página (aparte del título oversized, que es
+   una pieza de identidad visual con su propio tamaño): un nivel "micro"
+   fijo de 0.75rem para labels y copyright, un nivel "pequeño" fijo de
+   0.85rem para metadatos y el botón, y un nivel "cuerpo" fluido entre
+   ~0.95rem y ~1.05-1.1rem para párrafos, inputs y valores de contacto —
+   así el texto que escribe la persona en el formulario ya no es más
+   grande que el propio texto editorial de la página. */
+.Contact-intro {
+  color: var(--color-text);
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.05rem);
+  line-height: 1.6;
+  margin-bottom: clamp(1rem, 3vh, 1.75rem);
+}
+
+/* Formulario editorial "sin cajas". Cada campo lleva su propio índice numerado 
+   (01, 02, 03) vía contador CSS, un gesto tipográfico típico de portfolios/hoteles 
+   boutique que además refuerza que son solo tres pasos, no un formulario largo. */
+.Contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.5vh, 1.5rem);
+  counter-reset: form-field;
+}
+
+.Form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  counter-increment: form-field;
+}
+
+.Form-group::before {
+  content: counter(form-field, decimal-leading-zero);
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+.Form-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+}
+
+.Form-input,
+.Form-textarea {
+  font-family: inherit;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.1rem);
+  padding: 0.35rem 1.5rem 0.6rem 0;
+  border: none;
+  border-bottom: 1px solid var(--color-accent);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--color-text);
+  resize: vertical;
+  transition: border-color var(--duration-300) ease;
+}
+
+.Form-input:hover,
+.Form-textarea:hover {
+  border-color: var(--color-brand);
+}
+
+.Form-input:focus-visible,
+.Form-textarea:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 6px;
+  border-color: var(--color-brand);
+}
+
+/* Botón propio de esta página: ya no es un bloque relleno, sino un enlace
+   con flecha que se desliza al interactuar. El color del texto no cambia
+   solo la línea y la flecha reaccionan */
+.Contact-submit {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+
+  background: none;
+  color: var(--color-text);
+  
+
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: color var(--duration-300) ease;
+}
+
+.Contact-submitIcon {
+  transition: transform var(--duration-300) ease;
+}
+
+.Contact-submit:hover .Contact-submitIcon,
+.Contact-submit:focus-visible .Contact-submitIcon {
+  transform: translateX(4px);
+}
+
+/* ==========================================================
+   COLUMNA DE CONTACTO — fotografía + canales directos
+========================================================== */
+.Contact-info {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem 3rem 2.5rem;
+
+  color: var(--color-bg);
+}
+
+.Contact-infoImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Contact-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(44, 48, 54, 0.25), rgba(44, 48, 54, 0.8));
+}
+
+.Contact-channels {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.Contact-channel {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  /* Toda la fila es el enlace en vez de dejar el icono fuera del elemento. */
+  padding: 0.85rem 0.5rem;
+  border-radius: 0.5rem;
+
+  transition: background-color var(--duration-200) ease;
+}
+
+.Contact-channel:hover,
+.Contact-channel:focus-visible {
+  background-color: rgba(251, 249, 241, 0.12);
+}
+
+.Contact-channelIcon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.Contact-channelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.Contact-channelLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+}
+
+.Contact-channelValue {
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.05rem);
+}
+
+.Contact-meta {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(251, 249, 241, 0.25);
+}
+
+.Contact-location {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.Contact-social {
+  font-size: 0.85rem;
+  color: var(--color-bg);
+}
+
+.Contact-social:hover,
+.Contact-social:focus-visible {
+  text-decoration: underline;
+}
+
+.Contact-copy {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+/* ==========================================================
+   RESPONSIVE — Contact
+========================================================== */
+
+/* Laptops de poca altura (p.ej. 1366×768 con barra de tareas y barra del
+   navegador visibles): el layout de dos columnas a 100svh se mantiene,
+   pero el padding vertical de la columna del formulario —pensado para
+   pantallas altas— deja poco margen real de lectura por encima del
+   scroll interno de seguridad que ya tiene .Contact-formCol. Se reduce el
+   mínimo del clamp solo en el eje vertical (no se toca el horizontal). */
+@media (max-height: 700px) and (min-width: 901px) {
+  .Contact-formCol {
+    padding-top: clamp(3.5rem, 8vh, 6.5rem);
+    padding-bottom: clamp(1.25rem, 3vh, 2rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .Contact {
+    grid-template-columns: 1fr;
+    /* Los 100vh son un recurso de escritorio: en móvil/tablet el contenido
+       manda su propia altura y la página hace scroll con normalidad. */
+    height: auto;
+    min-height: 0;
+  }
+
+  .Contact-formCol {
+    padding: 8rem 1.5rem 4rem;
+    overflow-y: visible;
+  }
+
+  /* En pantallas estrechas el sangrado deja de tener sentido (el margen
+     ya es pequeño): el título se ancla al margen normal de la columna. */
+  .Contact-title {
+    margin-left: 0;
+  }
+
+  .Contact-formBody {
+    max-width: none;
+  }
+
+  .Contact-info {
+    min-height: 28rem;
+    padding: 2.5rem 1.5rem 2rem;
+  }
+}
