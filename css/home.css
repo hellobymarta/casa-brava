@@ -126,12 +126,12 @@
   bottom: 2rem;
   max-width: calc(50% - 2rem);
   text-align: right;
-  font-size: .8rem;
+  font-size: 0.875rem;
   z-index: 2;
 }
 
 .Anexo {
-  font-size: 0.8em;
+  font-size: 0.875em;
 }
 
 /* ==========================================================
@@ -217,7 +217,7 @@
   content: "•";
   display: inline-block;
   margin-left: clamp(1.5rem, 3vw, 3rem);
-  font-size: 0.5em;
+  font-size: 0.875em;
   color: var(--color-lg);
   opacity: 0.55;
 }
@@ -370,7 +370,7 @@
   background-color: var(--color-brand);
   color: var(--color-bg);
   text-transform: uppercase;
-  font-size: .85em;
+  font-size: 0.875em;
   letter-spacing: 0.08em;
   padding: 0.6rem 1.2rem;
   border-radius: 0.3rem;
@@ -457,7 +457,7 @@
    PREVIEW (lightbox modal de las miniaturas Feature)
    Diálogo activado por clic (no por hover): funciona igual en
    ratón, teclado y pantallas táctiles. Ver js/home.js.
-   z-index: var(--z-modal) (30, la capa más alta): este lightbox debe
+   z-index: var(--z-modal) (10, la capa más alta): este lightbox debe
    cubrir toda la página, Header incluido, no solo el contenido — ningún
    otro token de la escala de capas (ver base.css) es suficiente aquí.
 ========================================================== */
@@ -819,7 +819,7 @@
 }
 
 .Location-previewLabel {
-  font-size: .85rem;
+  font-size: 0.875rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--color-accent);
@@ -914,7 +914,7 @@
   }
 
   .Location-previewLabel {
-    font-size: 0.7rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -951,7 +951,7 @@
   }
 
   .Feature-subtitle {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .Feature-text {
@@ -998,6 +998,21 @@
   }
 
   .Cta-button {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
   }
+}
+
+/* Las listas ul/li (semántica) no alteran el layout previo: los li se
+   "disuelven" con display: contents y los botones siguen siendo hijos
+   efectivos del contenedor grid/flex/posicionado. */
+.Feature-boxes,
+.Location-hotspots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Feature-boxesItem,
+.Location-hotspotsItem {
+  display: contents;
 }

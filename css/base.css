@@ -43,7 +43,7 @@
   /* Escala de duraciones: token por cada valor usado en transition/animation
      de todo el proyecto. Al tokenizar TODAS las duraciones (nunca un valor
      suelto en la regla), prefers-reduced-motion puede anularlas todas a la
-     vez reasignando estas variables en :root, sin necesidad de !important
+     vez reasignando estas variables en :root, sin necesidad de forzar la cascada
      ni de aumentar la especificidad de ningún selector (ver más abajo). */
   --duration-200: 0.2s;
   --duration-300: 0.3s;
@@ -66,9 +66,9 @@
      contexto y nunca puede "escapar" para ganarle a un elemento fuera de
      él solo subiendo su propio z-index). --z-modal queda por encima de
      todo: el lightbox de Preview (Home) debe cubrir incluso el Header. */
-  --z-menuOverlay: 10;
-  --z-header: 20;
-  --z-modal: 30;
+  --z-menuOverlay: 5;
+  --z-header: 8;
+  --z-modal: 10;
 }
 
 /* ==========================================================
@@ -200,7 +200,7 @@ button:focus-visible {
 }
 
 .Header-a {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   position: relative;
@@ -234,7 +234,7 @@ button:focus-visible {
   justify-content: center;
   /* Padding alrededor del icono para alcanzar el área táctil mínima de 44x44px (WCAG 2.2, 2.5.8) */
   padding: 0.625rem;
-  z-index: 11;
+  z-index: 3;
 }
 
 .Header-icon {
@@ -250,7 +250,7 @@ button:focus-visible {
   color: var(--color-bg);
 
   padding: 0.6rem 1.2rem;
-  font-size: 0.85em;
+  font-size: 0.875em;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-radius: 0.3rem;
@@ -324,9 +324,9 @@ button:focus-visible {
     flex-direction: column;
     justify-content: center;
     padding: 2rem;
-    /* Local: solo necesita superar a .Header-hamburger (11) dentro del
+    /* Local: solo necesita superar a .Header-hamburger (3) dentro del
        contexto de apilamiento de .Header, no al overlay global. */
-    z-index: 12;
+    z-index: 4;
   }
 
   .Header-nav.is-open {
@@ -339,7 +339,7 @@ button:focus-visible {
 
   .Button-book {
     padding: 0.5rem 0.8rem;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -360,7 +360,7 @@ button:focus-visible {
 
   .Button-book {
     padding: 0.45rem 0.7rem;
-    font-size: 0.7rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -416,17 +416,17 @@ button:focus-visible {
 }
 
 .Footer-link {
-  font-size: .8rem;
+  font-size: 0.875rem;
   letter-spacing: .1em;
 }
 
 .Footer-copy {
-  font-size: .8rem;
+  font-size: 0.875rem;
 }
 
 /* ==========================================================
    PREFERENCIAS DE ACCESIBILIDAD DEL SISTEMA
-   Sin !important: cada transition/animation del proyecto usa un
+   Sin forzar la cascada: cada transition/animation del proyecto usa un
    token var(--duration-*) (nunca un valor suelto), así que basta
    con reasignar esos tokens en :root para anular el movimiento en
    cascada. scroll-behavior se resuelve igual: misma especificidad

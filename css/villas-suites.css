@@ -41,7 +41,7 @@
   display: block;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-family: var(--font-title);
   color: var(--color-accent);
 }
@@ -280,7 +280,7 @@
 .Villa-storyIndex {
   display: block;
   font-family: var(--font-title);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   letter-spacing: 0.08em;
   color: color-mix(in srgb, var(--color-text) 55%, transparent);
 }
@@ -428,7 +428,7 @@
   display: block;
   margin-top: 0.4rem;
   max-width: 22rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.45;
   color: color-mix(in srgb, var(--color-bg) 88%, transparent);
 }
@@ -440,7 +440,7 @@
   margin-top: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .ServicesMenu-categoryCueOpen {
@@ -617,7 +617,7 @@
   padding-top: 0.15rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   color: var(--category-accent);
 }
 
@@ -642,7 +642,7 @@
 }
 
 .ServicesMenu-itemIncludes li {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: color-mix(in srgb, var(--color-text) 70%, transparent);
 }
@@ -705,7 +705,7 @@
   display: inline-block;
   margin-top: 2rem;
   padding-bottom: 0.3rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-bottom: 1px solid color-mix(in srgb, var(--color-bg) 60%, transparent);

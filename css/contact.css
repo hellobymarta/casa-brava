@@ -95,13 +95,13 @@
   top: 0;
   right: 0;
   font-family: var(--font-title);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   letter-spacing: 0.05em;
 }
 
 .Form-label {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--color-text);
@@ -149,7 +149,7 @@
   
 
   padding: 0.5rem 0;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   transition: color var(--duration-300) ease;
@@ -232,7 +232,7 @@
 }
 
 .Contact-channelLabel {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   opacity: 0.85;
@@ -255,12 +255,12 @@
 }
 
 .Contact-location {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   letter-spacing: 0.05em;
 }
 
 .Contact-social {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--color-bg);
 }
 
@@ -270,7 +270,7 @@
 }
 
 .Contact-copy {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   opacity: 0.85;
 }
 

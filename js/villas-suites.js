@@ -1,4 +1,3 @@
-"use strict";
 
 /* ==========================================================
    VILLAS & SUITES
@@ -26,65 +25,74 @@
    alternar la clase "is-open" y sincronizar aria-expanded. Varios
    paneles pueden estar abiertos a la vez: no es un acordeón exclusivo.
 ---------------------------------------------------------- */
-function accordionTriggerHandler(event) {
-  const trigger = event.target.closest("[data-accordion-trigger]");
-  if (!trigger) return;
 
-  const panel = document.getElementById(trigger.getAttribute("aria-controls"));
-  if (!panel) return;
+(() => {
+  "use strict";
 
-  const isNowExpanded = trigger.getAttribute("aria-expanded") !== "true";
-  trigger.setAttribute("aria-expanded", String(isNowExpanded));
-  panel.classList.toggle("is-open", isNowExpanded);
-}
+  const mainElement = document.querySelector("main");
 
-document.addEventListener("click", accordionTriggerHandler);
-const prefersReducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-const isGsapAvailable = typeof window.gsap !== "undefined";
-const isScrollTriggerAvailable = isGsapAvailable && typeof window.ScrollTrigger !== "undefined";
-const canAnimateWithScroll = isScrollTriggerAvailable && !prefersReducedMotionQuery.matches;
+  function accordionTriggerHandler(event) {
+    const trigger = event.target.closest("[data-accordion-trigger]");
+    if (!trigger) return;
 
-if (canAnimateWithScroll) {
-  gsap.registerPlugin(ScrollTrigger);
+    const panel = mainElement.querySelector(`#${CSS.escape(trigger.getAttribute("aria-controls"))}`);
+    if (!panel) return;
 
-  /* Revelado en fundido: cada elemento parte de opacity:0 + un ascenso
-     de 1.5rem, y se anima una única vez al entrar en pantalla. Se fija
-     con gsap.set() en vez de en el CSS para que, si este bloque nunca
-     llega a ejecutarse, el contenido no dependa de JS para ser visible. */
-  document.querySelectorAll("[data-reveal]").forEach((revealElement) => {
-    gsap.set(revealElement, { opacity: 0, y: 24 });
-    gsap.to(revealElement, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: revealElement,
-        start: "top 88%",
-        toggleActions: "play none none none",
-      },
-    });
-  });
+    const isNowExpanded = trigger.getAttribute("aria-expanded") !== "true";
+    trigger.setAttribute("aria-expanded", String(isNowExpanded));
+    panel.classList.toggle("is-open", isNowExpanded);
+  }
 
-  /* Parallax sutil: solo las fotografías grandes se desplazan un poco
-     más despacio que el scroll (yPercent de -6 a 6, un recorrido muy
-     corto) mientras cruzan el viewport — nunca un movimiento brusco ni
-     un escalado. scrub:true liga el avance directamente a la posición
-     de scroll, sin inercia añadida. */
-  document.querySelectorAll("[data-parallax]").forEach((parallaxImage) => {
-    gsap.fromTo(
-      parallaxImage,
-      { yPercent: -6 },
-      {
-        yPercent: 6,
-        ease: "none",
+  mainElement.addEventListener("click", accordionTriggerHandler);
+  const prefersReducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const isGsapAvailable = typeof window.gsap !== "undefined";
+  const isScrollTriggerAvailable = isGsapAvailable && typeof window.ScrollTrigger !== "undefined";
+  const canAnimateWithScroll = isScrollTriggerAvailable && !prefersReducedMotionQuery.matches;
+
+  if (canAnimateWithScroll) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Revelado en fundido: cada elemento parte de opacity:0 + un ascenso
+       de 1.5rem, y se anima una única vez al entrar en pantalla. Se fija
+       con gsap.set() en vez de en el CSS para que, si este bloque nunca
+       llega a ejecutarse, el contenido no dependa de JS para ser visible. */
+    const revealElements = mainElement.querySelectorAll("[data-reveal]");
+    revealElements.forEach((revealElement) => {
+      gsap.set(revealElement, { opacity: 0, y: 24 });
+      gsap.to(revealElement, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: parallaxImage,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
+          trigger: revealElement,
+          start: "top 88%",
+          toggleActions: "play none none none",
         },
-      }
-    );
-  });
-}
+      });
+    });
+
+    /* Parallax sutil: solo las fotografías grandes se desplazan un poco
+       más despacio que el scroll (yPercent de -6 a 6, un recorrido muy
+       corto) mientras cruzan el viewport — nunca un movimiento brusco ni
+       un escalado. scrub:true liga el avance directamente a la posición
+       de scroll, sin inercia añadida. */
+    const parallaxImages = mainElement.querySelectorAll("[data-parallax]");
+    parallaxImages.forEach((parallaxImage) => {
+      gsap.fromTo(
+        parallaxImage,
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: parallaxImage,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    });
+  }
+})();
