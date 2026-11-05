@@ -768,15 +768,20 @@
 }
 
 /* ==========================================================
-   FUNDADORES — texto corto + cuadrícula 2×2 de cuatro fotografías del
-   mismo tamaño (playa, Raja Ampat, la obra y la moto). Móvil: texto
-   arriba y cuadrícula debajo; desde 900px, texto a la izquierda y
-   cuadrícula a la derecha.
+   FUNDADORES — bloque centrado como Origin y Craft: etiqueta, título,
+   dos párrafos, cuatro fotografías del mismo tamaño (playa, Raja Ampat,
+   la obra y la moto) y la firma. Móvil: cuadrícula 2×2; desde 700px,
+   cuatro en una sola fila.
 ========================================================== */
 .Founders {
-  display: grid;
-  gap: clamp(2rem, 6vh, 3.5rem);
-  padding: clamp(4rem, 12vh, 7rem) clamp(1.5rem, 6vw, 5rem);
+  padding: clamp(4rem, 10vh, 6rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  background-color: var(--color-bg);
+}
+
+.Founders-text {
+  max-width: 34rem;
+  margin-inline: auto;
 }
 
 .Founders-eyebrow {
@@ -788,32 +793,37 @@
   color: var(--color-accent);
 }
 
+/* Mismo estilo de título que Craft y Origin, para que la sección se lea
+   como parte de la misma página. */
 .Founders-title {
   margin-top: 0.75rem;
   font-family: var(--font-title);
   font-weight: 300;
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  line-height: 1.2;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.35;
+  color: var(--color-text);
 }
 
 .Founders-body {
-  margin-top: 1rem;
-  max-width: 30rem;
+  margin-top: 1.25rem;
   font-size: 1.05rem;
   line-height: 1.7;
+  color: var(--color-text);
 }
 
 .Founders-signature {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   font-family: var(--font-title);
   font-style: italic;
   font-size: 1.05rem;
+  color: var(--color-text);
 }
 
 .Founders-gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
+  margin-top: clamp(2.5rem, 7vh, 4rem);
   list-style: none;
 }
 
@@ -847,14 +857,9 @@
   object-position: 50% 55%;
 }
 
-@media (min-width: 900px) {
-  .Founders {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    gap: clamp(2rem, 5vw, 5rem);
-  }
-
+@media (min-width: 700px) {
   .Founders-gallery {
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.75rem, 1.6vw, 1.5rem);
   }
 }
