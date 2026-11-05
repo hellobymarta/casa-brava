@@ -1142,3 +1142,78 @@
     padding: 1.5rem;
   }
 }
+
+/* ==========================================================
+   BIENESTAR — sauna y baño de hielo, pérgola de yoga y bar. Texto
+   centrado arriba y galería debajo: una columna en móvil, y desde
+   900px una pieza ancha (2 columnas) más dos estrechas.
+========================================================== */
+.Wellness {
+  padding: clamp(4rem, 12vh, 7rem) clamp(1.5rem, 6vw, 5rem);
+}
+
+.Wellness-content {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.Wellness-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.Wellness-title {
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.Wellness-text {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.Wellness-gallery {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+  list-style: none;
+}
+
+.Wellness-figure {
+  overflow: hidden;
+}
+
+.Wellness-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.Wellness-caption {
+  margin-top: 0.6rem;
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 900px) {
+  .Wellness-gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 2rem);
+  }
+}

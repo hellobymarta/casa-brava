@@ -766,3 +766,95 @@
     object-position: 50% 30%;
   }
 }
+
+/* ==========================================================
+   FUNDADORES — texto corto + cuadrícula 2×2 de cuatro fotografías del
+   mismo tamaño (playa, Raja Ampat, la obra y la moto). Móvil: texto
+   arriba y cuadrícula debajo; desde 900px, texto a la izquierda y
+   cuadrícula a la derecha.
+========================================================== */
+.Founders {
+  display: grid;
+  gap: clamp(2rem, 6vh, 3.5rem);
+  padding: clamp(4rem, 12vh, 7rem) clamp(1.5rem, 6vw, 5rem);
+}
+
+.Founders-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+}
+
+.Founders-title {
+  margin-top: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.2;
+}
+
+.Founders-body {
+  margin-top: 1rem;
+  max-width: 30rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.Founders-signature {
+  margin-top: 1.5rem;
+  font-family: var(--font-title);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+.Founders-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.Founders-figure {
+  overflow: hidden;
+}
+
+/* Cuatro cuadrados idénticos: ninguna foto destaca sobre otra. Cada una
+   ajusta su encuadre (object-position) para no cortar a las personas. */
+.Founders-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.Founders-img--beach {
+  object-position: 50% 100%;
+}
+
+.Founders-img--raja {
+  object-position: 50% 90%;
+}
+
+.Founders-img--site {
+  object-position: 30% 50%;
+}
+
+.Founders-img--moto {
+  object-position: 50% 55%;
+}
+
+@media (min-width: 900px) {
+  .Founders {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .Founders-gallery {
+    gap: 1rem;
+  }
+}

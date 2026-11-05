@@ -243,6 +243,35 @@ button:focus-visible {
   color: var(--color-accent);
 }
 
+/* Selector de idioma: un único enlace discreto junto al botón de reserva,
+   que muestra el idioma al que se puede cambiar (EN en la versión
+   española, ES en la inglesa). */
+.Header-booking {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.LangSwitch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.6rem 0.6rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-accent);
+  border-radius: 0.3rem;
+  transition: background-color var(--duration-300) ease, color var(--duration-300) ease;
+}
+
+.LangSwitch:hover,
+.LangSwitch:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
 /* Botón de reserva (mismo componente, un único nombre de clase en todo el sitio) */
 .Button-book {
   display: inline-block;
@@ -341,6 +370,11 @@ button:focus-visible {
     padding: 0.5rem 0.8rem;
     font-size: 0.875rem;
   }
+
+  .LangSwitch {
+    min-width: 2.25rem;
+    padding: 0.5rem 0.4rem;
+  }
 }
 
 @media (max-width: 400px) {
@@ -361,6 +395,11 @@ button:focus-visible {
   .Button-book {
     padding: 0.45rem 0.7rem;
     font-size: 0.875rem;
+  }
+
+  .LangSwitch {
+    min-width: 2rem;
+    padding: 0.45rem 0.3rem;
   }
 }
 

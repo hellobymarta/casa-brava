@@ -837,3 +837,126 @@
     margin-inline: auto;
   }
 }
+
+/* ==========================================================
+   ALOJAMIENTOS — tipologías (villa de 1 y 2 dormitorios, suite) y
+   galería de espacios. Móvil: una columna; desde 900px, retícula de
+   tres columnas para las fichas y de tres para la galería.
+   Mismo padding y ritmo que .Villa y .ServicesMenu.
+========================================================== */
+.Stays {
+  padding-inline: clamp(1.5rem, 6vw, 5rem);
+  padding-block: clamp(4rem, 12vh, 7rem);
+  background-color: color-mix(in srgb, var(--color-brand) 12%, var(--color-bg) 88%);
+}
+
+.Stays-intro {
+  max-width: 32rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.Stays-eyebrow {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  font-family: var(--font-title);
+  color: var(--color-accent);
+}
+
+.Stays-lead {
+  margin-top: 0.75rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  line-height: 1.35;
+}
+
+.Stays-list,
+.Stays-gallery {
+  display: grid;
+  align-items: start;
+  gap: 2rem;
+  margin-top: clamp(2.5rem, 7vh, 4rem);
+  list-style: none;
+}
+
+.Stays-media,
+.Stays-figure {
+  overflow: hidden;
+}
+
+.Stays-img,
+.Stays-galleryImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Todas las fichas comparten la misma proporción para que, en una misma
+   fila, ninguna foto parezca más grande que otra. El encuadre
+   (object-position) se ajusta por foto para no cortar lo esencial de la imagen. */
+.Stays-img {
+  aspect-ratio: 1 / 1;
+}
+
+.Stays-galleryImg {
+  aspect-ratio: 9 / 10;
+}
+
+.Stays-galleryImg--shower {
+  object-position: 60% center;
+}
+
+
+.Stays-body {
+  padding-top: 1.25rem;
+}
+
+.Stays-size {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+  color: var(--color-accent);
+}
+
+.Stays-name {
+  margin-top: 0.4rem;
+  font-family: var(--font-title);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+  line-height: 1.3;
+}
+
+.Stays-text {
+  margin-top: 0.75rem;
+  max-width: 28rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.Stays-caption {
+  margin-top: 0.6rem;
+  font-family: var(--font-title);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 900px) {
+  .Stays-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  /* Galería: dos filas de tres fotos del mismo tamaño. */
+  .Stays-gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+}
