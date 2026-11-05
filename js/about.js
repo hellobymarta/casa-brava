@@ -102,6 +102,14 @@
     revealOnceHandler(craftMosaic, craftMosaicTiles, "Craft-mosaicTile--visible", 0.2);
   }
 
+  // --- Fundadores: el post-it se "pega" al entrar en pantalla ---
+  const foundersNote = mainElement.querySelector(".Founders-note");
+
+  if (foundersNote && canRevealWithMotion) {
+    foundersNote.classList.add("Founders-note--animated");
+    revealOnceHandler(foundersNote, [foundersNote], "Founders-note--visible", 0.3);
+  }
+
   // --- "El proceso" (Vídeo 1): localizado por el id del título (único),
   // no por una clase compartida con "La decisión", para no depender del
   // orden en el DOM ---
